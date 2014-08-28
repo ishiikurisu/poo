@@ -1,12 +1,12 @@
 public class Cliente {
-  private String nome = "";
-  private int cpf = 0;
+  private String nome;
+  private String cpf;
 
   public Cliente() {
-    nome = "null";
-    cpf = 0;
+    nome = "Joe";
+    cpf = "666";
   }
-  public Cliente(String meuNome, int meuCpf) {
+  public Cliente(String meuNome, String meuCpf) {
     nome = meuNome;
     cpf = meuCpf;
   }
@@ -22,10 +22,10 @@ public class Cliente {
   // ...
 
   // Métodos para CPF
-  public int getCpf() {
+  public String getCpf() {
     return cpf;
   }
-  public int setCpf(int novoCpf) {
+  public String setCpf(String novoCpf) {
     cpf = novoCpf;
     return cpf;
   }

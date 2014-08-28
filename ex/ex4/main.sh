@@ -1,1 +1,3 @@
-java bin/Main
+cd bin
+java Main
+rm *.class
