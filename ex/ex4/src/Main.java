@@ -8,6 +8,10 @@ public class Main {
 
   public static final void pass(){}
 
+  static void achtung() {
+    System.out.println("conta não encontrada!");
+  }
+
   public static Cliente criarCliente()
   {
     String novoCliente;
@@ -60,8 +64,10 @@ public class Main {
     {
       System.out.println("cliente nao encontrado!");
     }
+    else {
+      System.out.println("cliente encontrado: " + resultado.getNome());
+    }
 
-    System.out.println("cliente encontrado: " + resultado.getNome());
     return resultado;
   }
 
@@ -106,7 +112,112 @@ public class Main {
 
   public static void criarConta()
   {
-    System.out.println("preguica");
+    String novoNumeroConta;
+    Cliente cliente;
+    Conta novaConta;
+
+    cliente = consultarCliente();
+    if (cliente != null) {
+      System.out.print("digite o número da conta: ");
+      novoNumeroConta = input.next();
+      novaConta = new Conta(cliente, novoNumeroConta, 0);
+      repositorio.inserir(novaConta);
+    }
+  }
+
+  static void consultarConta()
+  {
+    String numeroConta;
+    Conta conta;
+
+    System.out.print("digite o numero da conta: ");
+    numeroConta = input.next();
+
+    conta = repositorio.procurar(numeroConta);
+    if (conta == null) {
+      System.out.println("conta não encontrada!");
+    }
+    else {
+      System.out.println("conta encontrada:");
+      System.out.println("  + número: " + conta.getNumero());
+      System.out.println("  + saldo: " + conta.getSaldo() + "$");
+      System.out.println("  + dono: " + conta.getDono().getNome());
+      System.out.println("  + CPF: " + conta.getDono().getCpf());
+    }
+  }
+
+  static void atualizarConta()
+  {
+    String numeroConta;
+    Conta conta;
+
+    System.out.print("digite o número da conta: ");
+    numeroConta = input.next();
+
+    conta = repositorio.procurar(numeroConta);
+    if (conta == null) {
+      System.out.println("conta não encontrada");
+    }
+    else {
+      System.out.print("digite o cpf do novo dono: ");
+      numeroConta = input.next();
+      Cliente cliente = consultarCliente();
+      if (cliente != null) {
+        conta.setDono(cliente);
+      }
+    }
+  }
+
+  static void removerConta()
+  {
+    String numeroConta;
+    Conta conta;
+
+    System.out.print("digite o número da conta: ");
+    numeroConta = input.next();
+
+    repositorio.remover(numeroConta);
+  }
+
+  static void creditarEmConta()
+  {
+    String numeroConta;
+    Conta conta;
+
+    System.out.print("digite o numero da conta: ");
+    numeroConta = input.next();
+    conta = repositorio.procurar(numeroConta);
+
+    if (conta == null) {
+      achtung();
+    } else {
+      System.out.print("digite o valor: ");
+      float credito = input.nextFloat();
+      conta.creditar(credito);
+    }
+  }
+
+  static void debitarEmConta()
+  {
+    String numeroConta;
+    Conta conta;
+
+    System.out.print("digite o numero da conta: ");
+    numeroConta = input.next();
+    conta = repositorio.procurar(numeroConta);
+
+    if (conta == null) {
+      achtung();
+    } else {
+      System.out.print("digite o valor: ");
+      float debito = input.nextFloat();
+      conta.debitar(debito);
+    }
+  }
+
+  static void transferirEntreContas()
+  {
+    pass();
   }
 
   public static final void mostrarOpcoes()
@@ -155,18 +266,25 @@ public class Main {
         removerCliente();
         break;
       case 5:
+        criarConta();
         break;
       case 6:
+        consultarConta();
         break;
       case 7:
+        atualizarConta();
         break;
       case 8:
+        removerConta();
         break;
       case 9:
+        creditarEmConta();
         break;
       case 10:
+        debitarEmConta();
         break;
       case 11:
+        transferirEntreContas();
         break;
       case 12:
         break;

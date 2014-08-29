@@ -7,12 +7,12 @@ Tipos
 -----
 
 + Primitivos
-
-Booleanos e inteiros.
-
+  + Booleanos
+  + Numéricos
 + Referências
-
-Classes, strings, arrays...
+  + Classes
+  + Strings
+  + Arrays
 
 Strings
 -------
