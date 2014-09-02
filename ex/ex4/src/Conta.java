@@ -65,4 +65,9 @@ public class Conta {
     this.debitar(quantia);
     conta.creditar(quantia);
   }
+  public void transferir(float quantia, Conta conta) {
+    this.debitar(quantia);
+    conta.creditar(quantia);
+  }
+
 }

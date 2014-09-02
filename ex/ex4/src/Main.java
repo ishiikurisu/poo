@@ -197,6 +197,7 @@ public class Main {
     }
   }
 
+  /*OPCAO 10 - Sacar da conta*/
   static void debitarEmConta()
   {
     String numeroConta;
@@ -215,9 +216,30 @@ public class Main {
     }
   }
 
+  /*OPCAO 11 - Transferir entre contas*/
   static void transferirEntreContas()
   {
-    pass();
+    String numeroContaOrigem;
+    String numeroContaChegada;
+    Conta origem;
+    Conta chegada;
+    float quantia;
+
+    System.out.print("Digite o numero da conta de origem: ");
+    numeroContaOrigem = input.next();
+    System.out.print("Digite o numero da conta de chegada: ");
+    numeroContaChegada = input.next();
+
+    origem = repositorio.procurar(numeroContaOrigem);
+    chegada = repositorio.procurar(numeroContaChegada);
+    if (origem != null && chegada != null) {
+      System.out.println("Digite o valor a ser transferido: ");
+      quantia = input.nextFloat();
+      origem.transferir(quantia, chegada);
+    }
+    else {
+      System.out.println("uma das contas não existem");
+    }
   }
 
   public static final void mostrarOpcoes()
