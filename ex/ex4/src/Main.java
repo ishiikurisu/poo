@@ -3,7 +3,7 @@ import java.util.*;
 public class Main {
   private static Scanner input = new Scanner(System.in);
   private static RepositorioContasArray repositorio = new RepositorioContasArray();
-  private static Cliente clientes[] = new Cliente[100];
+  private static Cliente[] clientes = new Cliente[100];
   private static int quantidadeClientes = 0;
 
   public static final void pass(){}
@@ -242,6 +242,18 @@ public class Main {
     }
   }
 
+  /*OPCAO 12 - Exibir dados da Conta de um cliente*/
+  static void exibirDadosConta()
+  {
+    String numeroCpf;
+    Cliente cliente;
+
+    cliente = consultarCliente(numero);
+    if (cliente != null) {
+      /*do some magic*/
+    }
+  }
+
   public static final void mostrarOpcoes()
   {
     System.out.println("*** Aplicação bancária ***");
@@ -309,6 +321,7 @@ public class Main {
         transferirEntreContas();
         break;
       case 12:
+        exibirDadosConta();
         break;
       case 13:
         break;

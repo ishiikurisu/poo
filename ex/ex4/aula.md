@@ -30,8 +30,8 @@ Também há o método this.equalsIgnoreCase().
 
 Outros métodos: this.length() retorna o tamanho da string; this.toLowerCase() e
 this.toUpperCase() retornam a string com todas as strings, ou com todas as
-as letras em minúsculo ou em maiúsculo; this.trim() tira os espaços ao
-final da string.
+as letras em minúsculo ou em maiúsculo; this.trim() tira os espaços nas pontas
+da string.
 
 Para lidar com índices substrings: this.indexOf(); this.substring();
 this.charAt().
@@ -48,4 +48,9 @@ Um array é uma sequência de elementos do mesmo tipo. Podem ser multidimensiona
 
     long[][] x = {{1,0},{2,3},{4,5},{6,7,8},{9,0}};
 
-Aqui também há acesso inválidos. Eles levantam a erro IndexOutOfBoundsException.
+Aqui também há acessos inválidos. Eles levantam a erro IndexOutOfBoundsException.
+
+Programação em Camadas
+======================
+
+Yo dawg, it's gonna take a lot of time to take us there.
