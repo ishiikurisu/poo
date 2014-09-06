@@ -1,6 +1,7 @@
+clear
 cd src
 javac Main.java || exit 1
-mv ../bin *.class
+mv *.class ../bin
 cd ../bin
 java Main || exit 2
 rm *.class

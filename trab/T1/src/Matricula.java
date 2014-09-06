@@ -4,7 +4,7 @@ public class Matricula {
   */
   private Aluno aluno;
   private Curso curso;
-  private final int numero;
+  private int numero;
 
   /**
   * Construtores
@@ -27,7 +27,7 @@ public class Matricula {
   }
 
   public Curso getCurso() {
-    return this.curso();
+    return this.curso;
   }
   public void setCurso(Curso curso) {
     this.curso = curso;

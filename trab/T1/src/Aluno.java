@@ -4,7 +4,7 @@ public class Aluno {
   */
   private String nome;
   private String endereco;
-  private String telefone
+  private String telefone;
   private int idade;
 
   /**
