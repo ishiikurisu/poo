@@ -1,12 +1,6 @@
 import java.util.*;
 
 public class RepositorioCurso extends Repositorio {
-  private List repositorio;
-
-  public RepositorioCurso() {
-    repositorio = new LinkedList<Curso>();
-  }
-
   /*remover cursos*/
   public void remover(String nome) {
     Curso removido = this.procurar(nome);
@@ -19,6 +13,8 @@ public class RepositorioCurso extends Repositorio {
   public Curso procurar(String nomeCurso) {
     Curso resultado = null;
     int i = 0;
+
+    if (nomeCurso == null) return null;
 
     while (i < repositorio.size() && resultado == null) {
       Curso temporario = (Curso) repositorio.get(i);

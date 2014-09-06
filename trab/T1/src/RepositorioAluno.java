@@ -14,6 +14,8 @@ public class RepositorioAluno extends Repositorio {
     Aluno resultado = null;
     int i = 0;
 
+    if (nomeAluno == null) return null;
+
     while (i < repositorio.size() && resultado == null) {
       Aluno temporario = (Aluno) repositorio.get(i);
 

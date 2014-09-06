@@ -2,8 +2,8 @@ import java.util.*;
 
 public class Main {
   private static RepositorioAluno repositorioAlunos = new RepositorioAluno();
-  private static Repositorio repositorioCursos = new RepositorioCurso();
-  private static Repositorio repositorioMatriculas = new RepositorioMatricula();
+  private static RepositorioCurso repositorioCursos = new RepositorioCurso();
+  private static RepositorioMatricula repositorioMatriculas = new RepositorioMatricula();
   private static Scanner input = new Scanner(System.in);
 
   public static final void mensagemErro(String msg) {
@@ -25,11 +25,11 @@ public class Main {
 
     System.out.println("Cadastro de novx alunx");
     System.out.print("  Digite o nome: ");
-    nome = input.next();
+    nome = input.nextLine().trim();
     System.out.print("  Digite o endereço: ");
-    endereco = input.next();
+    endereco = input.nextLine().trim();
     System.out.print("  Digite o telefone: ");
-    telefone = input.next();
+    telefone = input.nextLine().trim();
     System.out.print("  Digite a idade: ");
     idade = input.nextInt();
 
@@ -43,7 +43,7 @@ public class Main {
 
     System.out.println("Procura de alunos");
     System.out.print("  Digite o nome: ");
-    nome = input.next();
+    nome = input.nextLine().trim();
 
     aluno = repositorioAlunos.procurar(nome);
     if (aluno != null) {
@@ -73,11 +73,11 @@ public class Main {
       int idade;
 
       System.out.print("  Digite o novo nome: ");
-      nome = input.next();
+      nome = input.nextLine().trim();
       System.out.print("  Digite o novo endereço: ");
-      endereco = input.next();
+      endereco = input.nextLine().trim();
       System.out.print("  Digite o novo telefone: ");
-      telefone = input.next();
+      telefone = input.nextLine().trim();
       System.out.print("  Digite a nova idade: ");
       idade = input.nextInt();
 
@@ -106,6 +106,82 @@ public class Main {
     }
   }
 
+  static void cadastrarCurso() {
+    Curso curso;
+    String codigo;
+    String nome;
+    String instrutor;
+
+    System.out.println("Cadastro de curso");
+    System.out.print("  Digite o código: ");
+    codigo = input.nextLine().trim();
+    System.out.print("  Digite o nome: ");
+    nome = input.nextLine().trim();
+    System.out.print("  Digite o nome do instrutor: ");
+    instrutor = input.nextLine().trim();
+
+    curso = new Curso(codigo, nome, instrutor);
+    repositorioCursos.adicionar(curso);
+  }
+
+  static void procurarCurso() {
+    Curso curso;
+    String nome;
+
+    System.out.println("Procura de cursos");
+    System.out.print("  Digite o nome: ");
+    nome = input.nextLine().trim();
+
+    curso = repositorioCursos.procurar(nome);
+    if (curso != null) {
+      System.out.println("Curso encontrado: ");
+      System.out.println("  Código: " + curso.getCodigo());
+      System.out.println("  Nome: " + curso.getNome());
+      System.out.println("  Instrutor: " + curso.getInstrutor());
+    }
+    else {
+      mensagemErro("Curso não encontrado");
+    }
+  }
+
+  static void descadastrarCurso() {
+    String curso;
+
+    System.out.println("Descadastro de curso");
+    System.out.print("  Digite o nome: ");
+    curso = input.nextLine().trim();
+    repositorioCursos.remover(curso);
+  }
+
+  static void atualizarCurso() {
+    Curso curso;
+    String nome;
+
+    System.out.println("Atualização de curso");
+    System.out.print("  Digite o nome: ");
+    nome = input.next();
+    curso = repositorioCursos.procurar(nome);
+
+    if (curso != null) {
+      String codigo;
+      String instrutor;
+
+      System.out.print("  Digite o novo nome: ");
+      nome = input.nextLine().trim();
+      System.out.print("  Digite o novo código: ");
+      codigo = input.nextLine().trim();
+      System.out.print("  Digite o novo instrutor: ");
+      instrutor = input.nextLine().trim();
+
+      curso.setNome(nome);
+      curso.setCodigo(codigo);
+      curso.setInstrutor(instrutor);
+    }
+    else {
+      mensagemDeErro("Curso não encontrado");
+    }
+  }
+
   /**
   * FUNÇÕES DE LIGAÇÃO
   */
@@ -129,15 +205,15 @@ public class Main {
         break;
       case 5:
         /*cadastrar curso*/
-        mensagemErro("Opção não implementada.");
+        cadastrarCurso();
         break;
       case 6:
         /*procurar curso*/
-        mensagemErro("Opção não implementada.");
+        procurarCurso();
         break;
       case 7:
         /*atualizar curso*/
-        mensagemErro("Opção não implementada.");
+        atualizarCurso();
         break;
       case 8:
         /*descadastrar curso*/
