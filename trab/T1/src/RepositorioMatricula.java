@@ -13,6 +13,10 @@ public class RepositorioMatricula extends Repositorio {
       repositorio.remove(aRemover);
   }
 
+  public int tamanho() {
+    return repositorio.size();
+  }
+
   /*procurar matriculas*/
   public Matricula procurar(int numero) {
     Matricula resultado = null;

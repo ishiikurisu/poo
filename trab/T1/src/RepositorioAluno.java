@@ -9,6 +9,13 @@ public class RepositorioAluno extends Repositorio {
       repositorio.remove(removido);
   }
 
+  private boolean existe(String nomeAluno) {
+    if (this.procurar(nomeAluno) != null)
+      return true;
+    else
+      return false;
+  }
+
   /*procurar alunos*/
   public Aluno procurar(String nomeAluno) {
     Aluno resultado = null;

@@ -1,85 +1,67 @@
-import java.util.*;
-
 public class Main {
   private static RepositorioAluno repositorioAlunos = new RepositorioAluno();
   private static RepositorioCurso repositorioCursos = new RepositorioCurso();
   private static RepositorioMatricula repositorioMatriculas = new RepositorioMatricula();
-  private static Scanner input = new Scanner(System.in);
-
-  public static final void mensagemErro(String msg) {
-    System.out.println(msg);
-  }
-  public static final void mensagemDeErro(String msg) {
-    mensagemErro(msg);
-  }
+  private static Interface intfc = new Interface();
 
   /**
   * FUNÇÕES DE NEGÓCIO
   */
   static void cadastrarAluno() {
-    Aluno aluno;
-    String nome;
-    String endereco;
-    String telefone;
-    int idade;
+    Aluno aluno = null;
+    String nome = null;
+    String endereco = null;
+    String telefone = null;
+    int idade = 0;
 
-    System.out.println("Cadastro de novx alunx");
-    System.out.print("  Digite o nome: ");
-    nome = input.nextLine().trim();
-    System.out.print("  Digite o endereço: ");
-    endereco = input.nextLine().trim();
-    System.out.print("  Digite o telefone: ");
-    telefone = input.nextLine().trim();
-    System.out.print("  Digite a idade: ");
-    idade = input.nextInt();
+    intfc.escrever("Cadastro de novx alunx");
+    nome = intfc.pedir("Digite o nome", nome);
+    endereco = intfc.pedir("Digite o endereço", endereco);
+    telefone = intfc.pedir("Digite o telefone", telefone);
+    idade = intfc.pedir("Digite a idade", idade);
 
     aluno = new Aluno(nome, endereco, telefone, idade);
     repositorioAlunos.adicionar(aluno);
   }
 
   static void procurarAluno() {
-    Aluno aluno;
-    String nome;
+    Aluno aluno = null;
+    String nome = null;
 
-    System.out.println("Procura de alunos");
-    System.out.print("  Digite o nome: ");
-    nome = input.nextLine().trim();
+    intfc.escrever("Procura de alunos");
+    nome = intfc.pedir("Digite o nome", nome);
 
     aluno = repositorioAlunos.procurar(nome);
     if (aluno != null) {
-      System.out.println("Alunx encontradx: ");
-      System.out.println("  Nome: " + aluno.getNome());
-      System.out.println("  Endereço: " + aluno.getEndereco());
-      System.out.println("  Telefone: " + aluno.getTelefone());
-      System.out.println("  Idade: " + aluno.getIdade());
+      intfc.escrever("Alunx encontradx: ");
+      intfc.escrever("  Nome: " + aluno.getNome());
+      intfc.escrever("  Endereço: " + aluno.getEndereco());
+      intfc.escrever("  Telefone: " + aluno.getTelefone());
+      intfc.escrever("  Idade: " + aluno.getIdade());
     }
     else {
-      mensagemErro("Aluno não encontrado");
+      intfc.reportarErro("Aluno não encontrado");
     }
   }
 
   static void atualizarAluno() {
     Aluno aluno;
-    String nome;
+    String nome = null;
 
-    System.out.println("Atualização de aluno");
-    System.out.print("  Digite o nome: ");
-    nome = input.next();
+    intfc.escrever("Atualização de alunx");
+    nome = intfc.pedir("Digite o nome", nome);
     aluno = repositorioAlunos.procurar(nome);
 
     if (aluno != null) {
-      String endereco;
-      String telefone;
-      int idade;
+      String endereco = null;
+      String telefone = null;
+      int idade = 0;
 
-      System.out.print("  Digite o novo nome: ");
-      nome = input.nextLine().trim();
-      System.out.print("  Digite o novo endereço: ");
-      endereco = input.nextLine().trim();
-      System.out.print("  Digite o novo telefone: ");
-      telefone = input.nextLine().trim();
-      System.out.print("  Digite a nova idade: ");
-      idade = input.nextInt();
+      intfc.escrever("Alunx encontradx! Atualize:");
+      nome = intfc.pedir("Digite o novo nome", nome);
+      endereco = intfc.pedir("Digite o novo endereço", endereco);
+      telefone = intfc.pedir("Digite o novo telefone", telefone);
+      idade = intfc.pedir("Digite a nova idade", idade);
 
       aluno.setNome(nome);
       aluno.setEndereco(endereco);
@@ -87,38 +69,34 @@ public class Main {
       aluno.setIdade(idade);
     }
     else {
-      mensagemDeErro("Alunx não encontradx");
+      intfc.reportarErro("Alunx não encontradx");
     }
   }
 
   static void descadastrarAluno() {
-    String aluno;
+    String aluno = null;
 
-    System.out.println("Descadastro de novo aluno");
-    System.out.print("  Digite o nome: ");
-    aluno = input.next();
+    intfc.escrever("Descadastro de novo aluno");
+    aluno = intfc.pedir("Digite o nome", aluno);
 
     if (aluno == null)
-      mensagemErro("Aluno não encontrado");
+      intfc.reportarErro("Aluno não encontrado");
     else {
       repositorioAlunos.remover(aluno);
-      System.out.println("Alunx removidx");
+      intfc.escrever("Alunx removidx");
     }
   }
 
   static void cadastrarCurso() {
     Curso curso;
-    String codigo;
-    String nome;
-    String instrutor;
+    String codigo = null;
+    String nome = null;
+    String instrutor = null;
 
-    System.out.println("Cadastro de curso");
-    System.out.print("  Digite o código: ");
-    codigo = input.nextLine().trim();
-    System.out.print("  Digite o nome: ");
-    nome = input.nextLine().trim();
-    System.out.print("  Digite o nome do instrutor: ");
-    instrutor = input.nextLine().trim();
+    intfc.escrever("Cadastro de curso");
+    codigo = intfc.pedir("Digite o código", codigo);
+    nome = intfc.pedir("Digite o nome", nome);
+    instrutor = intfc.pedir("Digite o nome do instrutor", instrutor);
 
     curso = new Curso(codigo, nome, instrutor);
     repositorioCursos.adicionar(curso);
@@ -126,59 +104,73 @@ public class Main {
 
   static void procurarCurso() {
     Curso curso;
-    String nome;
+    String nome = null;
 
-    System.out.println("Procura de cursos");
-    System.out.print("  Digite o nome: ");
-    nome = input.nextLine().trim();
+    intfc.escrever("Procura de cursos");
+    nome = intfc.pedir("Digite o nome", nome);
 
     curso = repositorioCursos.procurar(nome);
     if (curso != null) {
-      System.out.println("Curso encontrado: ");
-      System.out.println("  Código: " + curso.getCodigo());
-      System.out.println("  Nome: " + curso.getNome());
-      System.out.println("  Instrutor: " + curso.getInstrutor());
+      intfc.escrever("Curso encontrado: ");
+      intfc.escrever("  Código: " + curso.getCodigo());
+      intfc.escrever("  Nome: " + curso.getNome());
+      intfc.escrever("  Instrutor: " + curso.getInstrutor());
     }
     else {
-      mensagemErro("Curso não encontrado");
+      intfc.reportarErro("Curso não encontrado");
     }
   }
 
   static void descadastrarCurso() {
-    String curso;
+    String curso = null;
 
-    System.out.println("Descadastro de curso");
-    System.out.print("  Digite o nome: ");
-    curso = input.nextLine().trim();
+    intfc.escrever("Descadastro de curso");
+    curso = intfc.pedir("Digite o nome", curso);
     repositorioCursos.remover(curso);
   }
 
   static void atualizarCurso() {
     Curso curso;
-    String nome;
+    String nome = null;
 
-    System.out.println("Atualização de curso");
-    System.out.print("  Digite o nome: ");
-    nome = input.next();
+    intfc.escrever("Atualização de curso");
+    nome = intfc.pedir("Digite o nome", nome);
     curso = repositorioCursos.procurar(nome);
 
     if (curso != null) {
-      String codigo;
-      String instrutor;
+      String codigo = null;
+      String instrutor = null;
 
-      System.out.print("  Digite o novo nome: ");
-      nome = input.nextLine().trim();
-      System.out.print("  Digite o novo código: ");
-      codigo = input.nextLine().trim();
-      System.out.print("  Digite o novo instrutor: ");
-      instrutor = input.nextLine().trim();
+      intfc.escrever("Curso encontrado! Atualize:");
+      nome = intfc.pedir("Digite o novo nome", nome);
+      codigo = intfc.pedir("Digite o novo código", codigo);
+      instrutor = intfc.pedir("Digite o novo instrutor", instrutor);
 
       curso.setNome(nome);
       curso.setCodigo(codigo);
       curso.setInstrutor(instrutor);
     }
     else {
-      mensagemDeErro("Curso não encontrado");
+      intfc.reportarErro("Curso não encontrado");
+    }
+  }
+
+  static void matricularAluno() {
+    String nomeAluno = null;
+    String nomeCurso = null;
+
+    intfc.escrever("Matrícula");
+    nomeAluno = intfc.pedir("Digite o nome do aluno", nomeAluno);
+    nomeCurso = intfc.pedir("Digite o nome do curso", nomeCurso);
+
+    Aluno aluno = repositorioAlunos.procurar(nomeAluno);
+    Curso curso = repositorioCursos.procurar(nomeCurso);
+
+    if (aluno == null || curso == null)
+      intfc.reportarErro("Erro interno");
+    else {
+      Matricula matricula = new Matricula(aluno, curso);
+      repositorioMatriculas.adicionar(matricula);
     }
   }
 
@@ -217,82 +209,77 @@ public class Main {
         break;
       case 8:
         /*descadastrar curso*/
-        mensagemErro("Opção não implementada.");
+        descadastrarCurso();
         break;
       case 9:
         /*matricular aluno*/
-        mensagemErro("Opção não implementada.");
+        matricularAluno();
         break;
       case 10:
         /*procurar matrícula*/
-        mensagemErro("Opção não implementada.");
+        intfc.reportarErro("Opção não implementada.");
         break;
       case 11:
         /*cancelar matrícula*/
-        mensagemErro("Opção não implementada.");
+        intfc.reportarErro("Opção não implementada.");
         break;
       case 12:
         /*listar todas as matrículas feitas*/
-        mensagemErro("Opção não implementada.");
+        intfc.reportarErro("Opção não implementada.");
         break;
       case 13:
         /*listar todos os cursos cadastrados*/
-        mensagemErro("Opção não implementada.");
+        intfc.reportarErro("Opção não implementada.");
         break;
       case 14:
         /*listar todos os alunos cadastrados*/
-        mensagemErro("Opção não implementada.");
+        intfc.reportarErro("Opção não implementada.");
         break;
       case 15:
         /*listar todos os alunos de um curso*/
-        mensagemErro("Opção não implementada.");
+        intfc.reportarErro("Opção não implementada.");
         break;
       case 16:
         /*listar todos os alunos de todos os cursos*/
-        mensagemErro("Opção não implementada.");
+        intfc.reportarErro("Opção não implementada.");
         break;
       case 17:
         /*listar todos os cursos de um aluno*/
-        mensagemErro("Opção não implementada.");
+        intfc.reportarErro("Opção não implementada.");
         break;
       case 18:
         /*listar todos os cursos de todos os alunos*/
-        mensagemErro("Opção não implementada.");
+        intfc.reportarErro("Opção não implementada.");
         break;
       case 19:
         /*listar todas as matrículas de um aluno*/
-        mensagemErro("Opção não implementada.");
+        intfc.reportarErro("Opção não implementada.");
         break;
       case 20:
         /*listar todas as matrículas de um curso*/
-        mensagemErro("Opção não implementada.");
+        intfc.reportarErro("Opção não implementada.");
         break;
       case 21:
         /*listar alunos cadastrados sem curso*/
-        mensagemErro("Opção não implementada.");
+        intfc.reportarErro("Opção não implementada.");
         break;
       case 22:
         /*listar cursos cadastrados sem alunos*/
-        mensagemErro("Opção não implementada.");
-        break;
-      case 23:
-        /*do some shit*/
-        //mensagemErro("Opção não implementada.");
+        intfc.reportarErro("Opção não implementada.");
         break;
 
       default:
-        mensagemErro("Opção inexistente.");
+        intfc.reportarErro("Opção inexistente.");
         break;
     }
   }
 
   public static final void main(String[] args) {
-    Interface intf = new Interface();
     int opcao;
 
     while (true) {
-      intf.menuPrincipal();
-      opcao = intf.escolher();
+      intfc.menuPrincipal();
+      opcao = intfc.escolher();
       if (opcao == 0) break;
       else realizar(opcao);
     }

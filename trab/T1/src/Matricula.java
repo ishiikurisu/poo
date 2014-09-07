@@ -5,15 +5,17 @@ public class Matricula {
   private Aluno aluno;
   private Curso curso;
   private int numero;
+  private static int count = 0;
 
   /**
   * Construtores
   */
   public Matricula() {}
-  public Matricula(Aluno aluno, Curso curso, int numero) {
+  public Matricula(Aluno aluno, Curso curso) {
     this.aluno = aluno;
     this.curso = curso;
-    this.numero = numero;
+    this.numero = count;
+    count++;
   }
 
   /**

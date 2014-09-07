@@ -17,6 +17,28 @@ public class Interface {
   /**
   * Métodos
   */
+  public static void reportarErro(String mensagemDeErro) {
+    System.out.println(mensagemDeErro);
+    //System.exit(1);
+  }
+  public static void escrever(String mensagem) {
+    System.out.println(mensagem);
+  }
+
+  /*esta função escreve mensagens no terminal pedindo informações*/
+  public static String pedir(String msg, String pedido) {
+    System.out.print("  " + msg + ": ");
+    pedido = input.next().trim();
+
+    return pedido;
+  }
+  public static int pedir(String msg, int pedido) {
+    System.out.print("  " + msg + ": ");
+    pedido = input.nextInt();
+
+    return pedido;
+  }
+
   /*a função menuPrincipal() mostra quais as opções disponíveis*/
   public static void menuPrincipal() {
     /* TO DO: MOSTRAR POSSIVEIS OPCOES*/
