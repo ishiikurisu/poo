@@ -5,7 +5,7 @@ public class Matricula {
   private Aluno aluno;
   private Curso curso;
   private int numero;
-  private static int count = 0;
+  private static int count = 1000;
 
   /**
   * Construtores

@@ -11,6 +11,7 @@
   - [ ] repositório dos alunos
   - [ ] repositório dos cursos
   - [ ] repositório das matrículas
+  + Os repositórios deverão conter mecanismos para evitar cadastros repetidos
 - [ ] Criar a interface
   + Deverá conter as seguintes operações:
     - Cadastrar aluno
@@ -19,7 +20,7 @@
     - Descadastrar aluno
     - Cadastrar curso
     - Procurar curso
-    - Ataulizar curso
+    - Atualizar curso
     - Descadastrar curso
     - Matricular aluno
     - Procurar matrícula

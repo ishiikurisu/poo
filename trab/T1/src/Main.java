@@ -1,13 +1,35 @@
+/**
+* Classe principal do 1o projeto da matéria Programação Orientada a Objetos
+* <p>
+* O objetivo deste trabalho é criar um sistema de cadastro para uma escola baseado
+* nas espeficicações fornecidas pelo professor.
+* </p>
+* <p>
+* Aqui, vamos lidar com o cadastro de alunos, de cursos e as matrículas associadas
+* a estes. Para tanto, criamos uma classe para cada um destes tipos e um classe de
+* repositório para lidar com grandes quantidades de cada um destes objetos.
+* </p>
+* <p>
+* Para usar o programa, criamos uma classe de interface do tipo textual, que permite
+* o usuário usar todas as funcionalidades permitidas pelo programa a partir de um
+* menu principal.
+* </p>
+* @author Cristiano Silva Jr - 13/0070629 <cristianoalvesjr@gmail.com>
+*/
+
 public class Main {
+  /* Atributos */
   private static RepositorioAluno repositorioAlunos = new RepositorioAluno();
   private static RepositorioCurso repositorioCursos = new RepositorioCurso();
   private static RepositorioMatricula repositorioMatriculas = new RepositorioMatricula();
   private static Interface intfc = new Interface();
 
+  /* FUNÇÕES DE NEGÓCIO */
+
   /**
-  * FUNÇÕES DE NEGÓCIO
+  * Cadastra um novo aluno
   */
-  static void cadastrarAluno() {
+  public static void cadastrarAluno() {
     Aluno aluno = null;
     String nome = null;
     String endereco = null;
@@ -24,7 +46,10 @@ public class Main {
     repositorioAlunos.adicionar(aluno);
   }
 
-  static void procurarAluno() {
+  /**
+  * Procura por um já cadastrado aluno
+  */
+  public static void procurarAluno() {
     Aluno aluno = null;
     String nome = null;
 
@@ -44,7 +69,10 @@ public class Main {
     }
   }
 
-  static void atualizarAluno() {
+  /**
+  * Atualiza os dados cadastrais de um determinado aluno
+  */
+  public static void atualizarAluno() {
     Aluno aluno;
     String nome = null;
 
@@ -73,7 +101,10 @@ public class Main {
     }
   }
 
-  static void descadastrarAluno() {
+  /**
+  * Descadastra um aluno
+  */
+  public static void descadastrarAluno() {
     String aluno = null;
 
     intfc.escrever("Descadastro de novo aluno");
@@ -87,7 +118,10 @@ public class Main {
     }
   }
 
-  static void cadastrarCurso() {
+  /**
+  * Cadastra um novo curso
+  */
+  public static void cadastrarCurso() {
     Curso curso;
     String codigo = null;
     String nome = null;
@@ -102,7 +136,10 @@ public class Main {
     repositorioCursos.adicionar(curso);
   }
 
-  static void procurarCurso() {
+  /**
+  * Procura por um determinado curso
+  */
+  public static void procurarCurso() {
     Curso curso;
     String nome = null;
 
@@ -121,7 +158,10 @@ public class Main {
     }
   }
 
-  static void descadastrarCurso() {
+  /**
+  * Descadastra um curso
+  */
+  public static void descadastrarCurso() {
     String curso = null;
 
     intfc.escrever("Descadastro de curso");
@@ -129,7 +169,10 @@ public class Main {
     repositorioCursos.remover(curso);
   }
 
-  static void atualizarCurso() {
+  /**
+  * Atualiza as informações cadastrais de um curso
+  */
+  public static void atualizarCurso() {
     Curso curso;
     String nome = null;
 
@@ -155,7 +198,10 @@ public class Main {
     }
   }
 
-  static void matricularAluno() {
+  /**
+  * Matricula um aluno em um curso
+  */
+  public static void matricularAluno() {
     String nomeAluno = null;
     String nomeCurso = null;
 
@@ -171,11 +217,33 @@ public class Main {
     else {
       Matricula matricula = new Matricula(aluno, curso);
       repositorioMatriculas.adicionar(matricula);
+      intfc.escrever("Matrícula gerada: " + matricula.getNumero());
     }
   }
 
   /**
-  * FUNÇÕES DE LIGAÇÃO
+  * Procura por uma matrícula
+  */
+  public static void procurarMatricula() {
+    Matricula matricula;
+    int numeroMatricula = 0;
+
+    intfc.escrever("Procura de matrículas");
+    numeroMatricula = intfc.pedir("Digite o número da matrícula", numeroMatricula);
+    matricula = repositorioMatriculas.procurar(numeroMatricula);
+    if (matricula == null)
+      intfc.reportarErro("Erro interno");
+    else {
+      intfc.escrever("Matrícula encontrada!");
+      intfc.escrever("  Aluno: " + matricula.getAluno().getNome());
+      intfc.escrever("  Curso: " + matricula.getCurso().getNome());
+      intfc.escrever("  Número: " + matricula.getNumero());
+    }
+  }
+
+  /* FUNÇÕES DE LIGAÇÃO */
+  /**
+  * Chama as outras funções baseados na opção escolhida
   */
   static void realizar(int opcao) {
     switch (opcao) {
@@ -217,52 +285,41 @@ public class Main {
         break;
       case 10:
         /*procurar matrícula*/
-        intfc.reportarErro("Opção não implementada.");
+        procurarMatricula();
         break;
       case 11:
         /*cancelar matrícula*/
-        intfc.reportarErro("Opção não implementada.");
-        break;
+
       case 12:
         /*listar todas as matrículas feitas*/
-        intfc.reportarErro("Opção não implementada.");
-        break;
+
       case 13:
         /*listar todos os cursos cadastrados*/
-        intfc.reportarErro("Opção não implementada.");
-        break;
+
       case 14:
         /*listar todos os alunos cadastrados*/
-        intfc.reportarErro("Opção não implementada.");
-        break;
+
       case 15:
         /*listar todos os alunos de um curso*/
-        intfc.reportarErro("Opção não implementada.");
-        break;
+
       case 16:
         /*listar todos os alunos de todos os cursos*/
-        intfc.reportarErro("Opção não implementada.");
-        break;
+
       case 17:
         /*listar todos os cursos de um aluno*/
-        intfc.reportarErro("Opção não implementada.");
-        break;
+
       case 18:
         /*listar todos os cursos de todos os alunos*/
-        intfc.reportarErro("Opção não implementada.");
-        break;
+
       case 19:
         /*listar todas as matrículas de um aluno*/
-        intfc.reportarErro("Opção não implementada.");
-        break;
+
       case 20:
         /*listar todas as matrículas de um curso*/
-        intfc.reportarErro("Opção não implementada.");
-        break;
+
       case 21:
         /*listar alunos cadastrados sem curso*/
-        intfc.reportarErro("Opção não implementada.");
-        break;
+
       case 22:
         /*listar cursos cadastrados sem alunos*/
         intfc.reportarErro("Opção não implementada.");
@@ -274,6 +331,9 @@ public class Main {
     }
   }
 
+  /**
+  * Dá início do programa
+  */
   public static final void main(String[] args) {
     int opcao;
 
