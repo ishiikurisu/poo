@@ -56,6 +56,16 @@ public class Interface {
   }
 
   /**
+  * Mostra várias coleções de dados
+  */
+  public static void mostrarVarios(List infos) {
+    for (int i = 0; i < infos.size(); ++i) {
+      String[] info = (String[]) infos.get(i);
+      mostrar(info);
+    }
+  }
+
+  /**
   * Mostra quais as opções disponíveis no programa em questão
   */
   public static void menuPrincipal() {

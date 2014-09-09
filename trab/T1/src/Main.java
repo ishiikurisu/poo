@@ -168,7 +168,7 @@ public class Main {
       codigo = intfc.pedir("Digite o novo código", codigo);
       instrutor = intfc.pedir("Digite o novo instrutor", instrutor);
 
-      flag = cad.atualizar(curso, codigo, nome, instrutor);
+      cad.atualizar(curso, codigo, nome, instrutor);
       intfc.escrever("Curso atualizado!");
     }
 
@@ -240,53 +240,25 @@ public class Main {
   /**
   * Lista todas as matrículas
   */
-  /*
   public static void listarMatriculas() {
     intfc.escrever("Todas as matrículas");
-    for (int i = 0; i <  repositorioMatriculas.tamanho(); ++i) {
-      Matricula matricula = (Matricula) repositorioMatriculas.obter(i);
-      String[] info = {
-        "Número", "" + matricula.getNumero(),
-        "Aluno", matricula.getAluno().getNome(),
-        "Curso", matricula.getCurso().getNome()
-      };
-      intfc.mostrar(info, 3);
-    }
+    intfc.mostrarVarios(cad.listarMatriculas());
   }
 
   /**
   * Lista todos os cursos cadastrados
   */
-  /*
   public static void listarCursos() {
     intfc.escrever("Todos os cursos cadastrados");
-    for (int i = 0; i < repositorioCursos.tamanho(); ++i) {
-      Curso curso = (Curso) repositorioCursos.obter(i);
-      String[] info = {
-        "Código", curso.getCodigo(),
-        "Nome", curso.getNome(),
-        "Instrutor", curso.getInstrutor()
-      };
-      intfc.mostrar(info, 3);
-    }
+    intfc.mostrarVarios(cad.listarCursos());
   }
 
   /**
   * Lista todos os alunos
   */
-  /*
   public static void listarAlunos() {
     intfc.escrever("Todos os alunos");
-    for (int i = 0; i < repositorioAlunos.tamanho(); ++i) {
-      Aluno aluno = (Aluno) repositorioAlunos.obter(i);
-      String[] info = {
-        "Nome", aluno.getNome(),
-        "Endereço", aluno.getEndereco(),
-        "Telefone", aluno.getTelefone(),
-        "Idade", "" + aluno.getIdade()
-      };
-      intfc.mostrar(info, 4);
-    }
+    intfc.mostrarVarios(cad.listarAlunos());
   }
 
   /* FUNÇÕES DE LIGAÇÃO */
@@ -338,15 +310,15 @@ public class Main {
         break;
       case 12:
         /*listar todas as matrículas feitas*/
-        //listarMatriculas();
+        listarMatriculas();
         break;
       case 13:
         /*listar todos os cursos cadastrados*/
-        //listarCursos();
+        listarCursos();
         break;
       case 14:
         /*listar todos os alunos cadastrados*/
-        //listarAlunos();
+        listarAlunos();
         break;
       case 15:
         /*listar todos os alunos de um curso*/

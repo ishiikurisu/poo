@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Cadastro {
   private static RepositorioAluno repositorioAlunos = new RepositorioAluno();
   private static RepositorioCurso repositorioCursos = new RepositorioCurso();
@@ -115,5 +117,59 @@ public class Cadastro {
   }
 
   /* LISTAGENS */
+  public List listarMatriculas() { // Versão sem filtros
+    List list = new LinkedList<String[]>();
+
+    for (int i = 0; i < repositorioMatriculas.tamanho(); ++i) {
+      Matricula matricula = (Matricula) repositorioMatriculas.obter(i);
+      String[] info = {
+        "3",
+        "Número", "" + matricula.getNumero(),
+        "Aluno", matricula.getAluno().getNome(),
+        "Curso", matricula.getCurso().getNome()
+      };
+
+      list.add(info);
+    }
+
+    return list;
+  }
+
+  public List listarCursos() { // Versão sem filtros
+    List list = new LinkedList<String[]>();
+
+    for (int i = 0; i < repositorioCursos.tamanho(); ++i) {
+      Curso curso = (Curso) repositorioCursos.obter(i);
+      String[] info = {
+        "3",
+        "Código", curso.getCodigo(),
+        "Nome", curso.getNome(),
+        "Instrutor", curso.getInstrutor()
+      };
+
+      list.add(info);
+    }
+
+    return list;
+  }
+
+  public List listarAlunos() { // Versão sem filtros
+    List list = new LinkedList<String[]>();
+
+    for (int i = 0; i < repositorioAlunos.tamanho(); ++i) {
+      Aluno aluno = (Aluno) repositorioAlunos.obter(i);
+      String[] info = {
+        "4",
+        "Nome", aluno.getNome(),
+        "Endereço", aluno.getEndereco(),
+        "Telefone", aluno.getTelefone(),
+        "Idade", "" + aluno.getIdade()
+      };
+
+      list.add(info);
+    }
+
+    return list;
+  }
 
 }
