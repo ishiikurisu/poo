@@ -33,7 +33,7 @@ this.toUpperCase() retornam a string com todas as strings, ou com todas as
 as letras em minúsculo ou em maiúsculo; this.trim() tira os espaços nas pontas
 da string.
 
-Para lidar com índices substrings: this.indexOf(); this.substring();
+Para lidar com índices e substrings: this.indexOf(); this.substring();
 this.charAt().
 
 Arrays
@@ -50,7 +50,23 @@ Um array é uma sequência de elementos do mesmo tipo. Podem ser multidimensiona
 
 Aqui também há acessos inválidos. Eles levantam a erro IndexOutOfBoundsException.
 
-Programação em Camadas
+Arquitetura em Camadas
 ======================
 
-Yo dawg, it's gonna take a lot of time to take us there.
+É uma abordagem para estruturar aplicações
+
+Benefícios
+----------
++ Modularidade
++ Separação por conceitos
++ Facilidade de manutenção
+
+Uma camada deve fornecer suporte para a camada de cima. Uma camada inferior abs-
+trai detalhes das camadas superiores. Um estilo arquitetural comum é:
+
++ Interface
++ Comunicação
++ Negócio
++ Dados
+
+Outros estilo incluem MVC, pipes and filters,

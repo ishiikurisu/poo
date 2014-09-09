@@ -1,22 +1,17 @@
-import java.util.*;
+import java.util.Scanner;
+import java.util.List;
 
 public class Interface {
-  /**
-  * Atributos
-  */
+  /* Atributos */
   private static Scanner input;
   private static int option;
 
-  /**
-  * Construtores
-  */
+  /* Construtores */
   public Interface() {
     input = new Scanner(System.in);
   }
 
-  /**
-  * Métodos
-  */
+  /* Métodos */
   public static void reportarErro(String mensagemDeErro) {
     System.out.println(mensagemDeErro);
     //System.exit(1);
@@ -25,7 +20,9 @@ public class Interface {
     System.out.println(mensagem);
   }
 
-  /*esta função escreve mensagens no terminal pedindo informações*/
+  /**
+  * Escreve mensagens no terminal pedindo informações
+  */
   public static String pedir(String msg, String pedido) {
     System.out.print("  " + msg + ": ");
     pedido = input.next().trim();
@@ -39,7 +36,27 @@ public class Interface {
     return pedido;
   }
 
-  /*a função menuPrincipal() mostra quais as opções disponíveis*/
+  /**
+  * Mostra uma coleção de dados por vez
+  */
+  public static void mostrar(String[] info, int maxSize) {
+    String tag;
+    String obj;
+    String result;
+
+    for (int i = 0; i < maxSize; ++i) {
+      tag = info[2*i];
+      obj = info[2*i+1];
+      result = tag + ": " + obj;
+
+      System.out.println("  " + result);
+    }
+    System.out.println("---");
+  }
+
+  /**
+  * Mostra quais as opções disponíveis no programa em questão
+  */
   public static void menuPrincipal() {
     /* TO DO: MOSTRAR POSSIVEIS OPCOES*/
     System.out.println("*** CENTRO DE ENSINO XYZ ***");
@@ -67,15 +84,6 @@ public class Interface {
     System.out.println("21. Listar alunos cadastrados sem curso");
     System.out.println("22. Listar cursos cadastrados sem alunos");
     System.out.println("23. SAIR");
-    System.out.print("Favor escolher uma opção: ");
   }
 
-  public static int escolher() {
-    option = input.nextInt();
-
-    if (option == 23)
-      option = 0;
-
-    return option;
-  }
 }

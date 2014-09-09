@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.List;
 
 public class RepositorioAluno extends Repositorio {
   /*remover alunos*/

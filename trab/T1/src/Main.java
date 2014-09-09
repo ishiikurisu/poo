@@ -149,9 +149,12 @@ public class Main {
     curso = repositorioCursos.procurar(nome);
     if (curso != null) {
       intfc.escrever("Curso encontrado: ");
-      intfc.escrever("  Código: " + curso.getCodigo());
-      intfc.escrever("  Nome: " + curso.getNome());
-      intfc.escrever("  Instrutor: " + curso.getInstrutor());
+      String[] info = {
+        "Código", curso.getCodigo(),
+        "Nome", curso.getNome(),
+        "Instrutor", curso.getInstrutor()
+      };
+      intfc.mostrar(info, 3);
     }
     else {
       intfc.reportarErro("Curso não encontrado");
@@ -235,16 +238,87 @@ public class Main {
       intfc.reportarErro("Erro interno");
     else {
       intfc.escrever("Matrícula encontrada!");
-      intfc.escrever("  Aluno: " + matricula.getAluno().getNome());
-      intfc.escrever("  Curso: " + matricula.getCurso().getNome());
-      intfc.escrever("  Número: " + matricula.getNumero());
+      String[] info = {
+        "Aluno", matricula.getAluno().getNome(),
+        "Curso", matricula.getCurso().getNome(),
+        "Número", "" + matricula.getNumero()
+      };
+      intfc.mostrar(info, 3);
+    }
+  }
+
+  public static void cancelarMatricula() {
+    Matricula matricula;
+    int numeroMatricula = 0;
+
+    intfc.escrever("Cancelamento de matrícula");
+    numeroMatricula = intfc.pedir("Digite o número da matrícula", numeroMatricula);
+
+    repositorioMatriculas.remover(numeroMatricula);
+    intfc.escrever("Matrícula cancelada");
+  }
+
+  /* FUNÇÕES DE LISTAGEM */
+
+  // Nova idéia: usar um Dicionário para escrever as listagens. Para tanto,
+  // devemos checar se podemos escrever todos os itens de um dicionário.
+  // Se não der, podemos usar um dicionário dentro de um dicionário:
+  // O primeiro dicionário conterá as entradas para as informações, e o
+  // dicionário interior conterá os pares de informações a serem usados.
+
+  // Nova idéia: criar classes de cadastro, que lidem com o preenchimento dos
+  // repositórios e com as listagens.
+
+  /**
+  * Lista todas as matrículas
+  */
+  public static void listarMatriculas() {
+    intfc.escrever("Todas as matrículas");
+    for (int i = 0; i <  repositorioMatriculas.tamanho(); ++i) {
+      Matricula matricula = (Matricula) repositorioMatriculas.obter(i);
+      String[] info = {
+        "Número", "" + matricula.getNumero(),
+        "Aluno", matricula.getAluno().getNome(),
+        "Curso", matricula.getCurso().getNome()
+      };
+      intfc.mostrar(info, 3);
+    }
+  }
+
+  /**
+  * Lista todos os cursos cadastrados
+  */
+  public static void listarCursos() {
+    intfc.escrever("Todos os cursos cadastrados");
+    for (int i = 0; i < repositorioCursos.tamanho(); ++i) {
+      Curso curso = (Curso) repositorioCursos.obter(i);
+      String[] info = {
+        "Código", curso.getCodigo(),
+        "Nome", curso.getNome(),
+        "Instrutor", curso.getInstrutor()
+      };
+      intfc.mostrar(info, 3);
+    }
+  }
+
+  /**
+  * Lista todos os alunos
+  */
+  public static void listarAlunos() {
+    intfc.escrever("Todos os alunos");
+    for (int i = 0; i < repositorioAlunos.tamanho(); ++i) {
+      Aluno aluno = (Aluno) repositorioAlunos.obter(i);
+      String[] info = {
+        "Nome", aluno.getNome(),
+        "Endereço", aluno.getEndereco(),
+        "Telefone", aluno.getTelefone(),
+        "Idade", "" + aluno.getIdade()
+      };
+      intfc.mostrar(info, 4);
     }
   }
 
   /* FUNÇÕES DE LIGAÇÃO */
-  /**
-  * Chama as outras funções baseados na opção escolhida
-  */
   static void realizar(int opcao) {
     switch (opcao) {
       case 1:
@@ -289,16 +363,20 @@ public class Main {
         break;
       case 11:
         /*cancelar matrícula*/
-
+        cancelarMatricula();
+        break;
       case 12:
         /*listar todas as matrículas feitas*/
-
+        listarMatriculas();
+        break;
       case 13:
         /*listar todos os cursos cadastrados*/
-
+        listarCursos();
+        break;
       case 14:
         /*listar todos os alunos cadastrados*/
-
+        listarAlunos();
+        break;
       case 15:
         /*listar todos os alunos de um curso*/
 
@@ -335,12 +413,12 @@ public class Main {
   * Dá início do programa
   */
   public static final void main(String[] args) {
-    int opcao;
+    int opcao = 0;
 
     while (true) {
       intfc.menuPrincipal();
-      opcao = intfc.escolher();
-      if (opcao == 0) break;
+      opcao = intfc.pedir("Favor escolher uma opção", opcao);
+      if (opcao == 23 || opcao == 0) break;
       else realizar(opcao);
     }
   }

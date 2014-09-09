@@ -16,9 +16,18 @@ public class Repositorio {
   /**
   * Métodos
   */
-  /*adicionar itens*/
+  /* adicionar itens */
   public void adicionar(Object obj) {
     repositorio.add(obj);
+  }
+
+  /* funções de interação */
+  public Object obter(int index) {
+    return repositorio.get(index);
+  }
+
+  public int tamanho() {
+    return repositorio.size();
   }
 
   /* remover itens
