@@ -19,9 +19,7 @@
 
 public class Main {
   /* Atributos */
-  private static RepositorioAluno repositorioAlunos = new RepositorioAluno();
-  private static RepositorioCurso repositorioCursos = new RepositorioCurso();
-  private static RepositorioMatricula repositorioMatriculas = new RepositorioMatricula();
+  private static Cadastro cad = new Cadastro();
   private static Interface intfc = new Interface();
 
   /* FUNÇÕES DE NEGÓCIO */
@@ -42,8 +40,7 @@ public class Main {
     telefone = intfc.pedir("Digite o telefone", telefone);
     idade = intfc.pedir("Digite a idade", idade);
 
-    aluno = new Aluno(nome, endereco, telefone, idade);
-    repositorioAlunos.adicionar(aluno);
+    cad.cadastrar(nome, endereco, telefone, idade);
   }
 
   /**
@@ -56,7 +53,7 @@ public class Main {
     intfc.escrever("Procura de alunos");
     nome = intfc.pedir("Digite o nome", nome);
 
-    aluno = repositorioAlunos.procurar(nome);
+    aluno = cad.procurarAluno(nome);
     if (aluno != null) {
       intfc.escrever("Alunx encontradx: ");
       intfc.escrever("  Nome: " + aluno.getNome());
@@ -73,29 +70,23 @@ public class Main {
   * Atualiza os dados cadastrais de um determinado aluno
   */
   public static void atualizarAluno() {
-    Aluno aluno;
     String nome = null;
+    String novoNome = null;
+    String endereco = null;
+    String telefone = null;
+    int idade = 0;
 
     intfc.escrever("Atualização de alunx");
     nome = intfc.pedir("Digite o nome", nome);
-    aluno = repositorioAlunos.procurar(nome);
+    novoNome = intfc.pedir("Digite o novo nome", nome);
+    endereco = intfc.pedir("Digite o novo endereço", endereco);
+    telefone = intfc.pedir("Digite o novo telefone", telefone);
+    idade = intfc.pedir("Digite a nova idade", idade);
+    Aluno aluno = cad.atualizar(nome, novoNome, endereco, telefone, idade);
 
     if (aluno != null) {
-      String endereco = null;
-      String telefone = null;
-      int idade = 0;
-
-      intfc.escrever("Alunx encontradx! Atualize:");
-      nome = intfc.pedir("Digite o novo nome", nome);
-      endereco = intfc.pedir("Digite o novo endereço", endereco);
-      telefone = intfc.pedir("Digite o novo telefone", telefone);
-      idade = intfc.pedir("Digite a nova idade", idade);
-
-      aluno.setNome(nome);
-      aluno.setEndereco(endereco);
-      aluno.setTelefone(telefone);
-      aluno.setIdade(idade);
-    }
+      intfc.escrever("Alunx atualizadx!");
+      }
     else {
       intfc.reportarErro("Alunx não encontradx");
     }
@@ -109,13 +100,8 @@ public class Main {
 
     intfc.escrever("Descadastro de novo aluno");
     aluno = intfc.pedir("Digite o nome", aluno);
-
-    if (aluno == null)
-      intfc.reportarErro("Aluno não encontrado");
-    else {
-      repositorioAlunos.remover(aluno);
-      intfc.escrever("Alunx removidx");
-    }
+    cad.descadastrarAluno(aluno);
+    intfc.escrever("Alunx removidx");
   }
 
   /**
@@ -131,9 +117,7 @@ public class Main {
     codigo = intfc.pedir("Digite o código", codigo);
     nome = intfc.pedir("Digite o nome", nome);
     instrutor = intfc.pedir("Digite o nome do instrutor", instrutor);
-
-    curso = new Curso(codigo, nome, instrutor);
-    repositorioCursos.adicionar(curso);
+    cad.cadastrar(codigo, nome, instrutor);
   }
 
   /**
@@ -145,20 +129,7 @@ public class Main {
 
     intfc.escrever("Procura de cursos");
     nome = intfc.pedir("Digite o nome", nome);
-
-    curso = repositorioCursos.procurar(nome);
-    if (curso != null) {
-      intfc.escrever("Curso encontrado: ");
-      String[] info = {
-        "Código", curso.getCodigo(),
-        "Nome", curso.getNome(),
-        "Instrutor", curso.getInstrutor()
-      };
-      intfc.mostrar(info, 3);
-    }
-    else {
-      intfc.reportarErro("Curso não encontrado");
-    }
+    intfc.mostrar(cad.procurarCurso(nome));
   }
 
   /**
@@ -169,33 +140,30 @@ public class Main {
 
     intfc.escrever("Descadastro de curso");
     curso = intfc.pedir("Digite o nome", curso);
-    repositorioCursos.remover(curso);
+    cad.descadastrarCurso(curso);
   }
 
   /**
   * Atualiza as informações cadastrais de um curso
   */
   public static void atualizarCurso() {
-    Curso curso;
+    String curso = null;
     String nome = null;
+    String codigo = null;
+    String instrutor = null;
+    Curso flag;
 
     intfc.escrever("Atualização de curso");
-    nome = intfc.pedir("Digite o nome", nome);
-    curso = repositorioCursos.procurar(nome);
-
-    if (curso != null) {
-      String codigo = null;
-      String instrutor = null;
-
-      intfc.escrever("Curso encontrado! Atualize:");
+    curso = intfc.pedir("Digite o nome", curso);
+    if (cad.existeCurso(curso)) {
       nome = intfc.pedir("Digite o novo nome", nome);
       codigo = intfc.pedir("Digite o novo código", codigo);
       instrutor = intfc.pedir("Digite o novo instrutor", instrutor);
 
-      curso.setNome(nome);
-      curso.setCodigo(codigo);
-      curso.setInstrutor(instrutor);
+      flag = cad.atualizar(curso, codigo, nome, instrutor);
+      intfc.escrever("Curso atualizado!");
     }
+
     else {
       intfc.reportarErro("Curso não encontrado");
     }
@@ -205,22 +173,18 @@ public class Main {
   * Matricula um aluno em um curso
   */
   public static void matricularAluno() {
-    String nomeAluno = null;
-    String nomeCurso = null;
+    String aluno = null;
+    String curso = null;
 
     intfc.escrever("Matrícula");
-    nomeAluno = intfc.pedir("Digite o nome do aluno", nomeAluno);
-    nomeCurso = intfc.pedir("Digite o nome do curso", nomeCurso);
+    aluno = intfc.pedir("Nome do aluno", aluno);
+    curso = intfc.pedir("Nome do curso", curso);
+    int matricula = cad.matricularAluno(aluno, curso);
 
-    Aluno aluno = repositorioAlunos.procurar(nomeAluno);
-    Curso curso = repositorioCursos.procurar(nomeCurso);
-
-    if (aluno == null || curso == null)
+    if (matricula == 0)
       intfc.reportarErro("Erro interno");
     else {
-      Matricula matricula = new Matricula(aluno, curso);
-      repositorioMatriculas.adicionar(matricula);
-      intfc.escrever("Matrícula gerada: " + matricula.getNumero());
+      intfc.escrever("Matrícula gerada: " + matricula);
     }
   }
 
@@ -230,21 +194,16 @@ public class Main {
   public static void procurarMatricula() {
     Matricula matricula;
     int numeroMatricula = 0;
+    String info[] = null;
 
     intfc.escrever("Procura de matrículas");
     numeroMatricula = intfc.pedir("Digite o número da matrícula", numeroMatricula);
-    matricula = repositorioMatriculas.procurar(numeroMatricula);
-    if (matricula == null)
+    info = cad.procurarMatricula(numeroMatricula);
+
+    if (info == null)
       intfc.reportarErro("Erro interno");
-    else {
-      intfc.escrever("Matrícula encontrada!");
-      String[] info = {
-        "Aluno", matricula.getAluno().getNome(),
-        "Curso", matricula.getCurso().getNome(),
-        "Número", "" + matricula.getNumero()
-      };
-      intfc.mostrar(info, 3);
-    }
+    else
+      intfc.mostrar(info);
   }
 
   public static void cancelarMatricula() {
@@ -253,8 +212,7 @@ public class Main {
 
     intfc.escrever("Cancelamento de matrícula");
     numeroMatricula = intfc.pedir("Digite o número da matrícula", numeroMatricula);
-
-    repositorioMatriculas.remover(numeroMatricula);
+    cad.cancelarMatricula(numeroMatricula);
     intfc.escrever("Matrícula cancelada");
   }
 
@@ -272,6 +230,7 @@ public class Main {
   /**
   * Lista todas as matrículas
   */
+  /*
   public static void listarMatriculas() {
     intfc.escrever("Todas as matrículas");
     for (int i = 0; i <  repositorioMatriculas.tamanho(); ++i) {
@@ -288,6 +247,7 @@ public class Main {
   /**
   * Lista todos os cursos cadastrados
   */
+  /*
   public static void listarCursos() {
     intfc.escrever("Todos os cursos cadastrados");
     for (int i = 0; i < repositorioCursos.tamanho(); ++i) {
@@ -304,6 +264,7 @@ public class Main {
   /**
   * Lista todos os alunos
   */
+  /*
   public static void listarAlunos() {
     intfc.escrever("Todos os alunos");
     for (int i = 0; i < repositorioAlunos.tamanho(); ++i) {
@@ -367,15 +328,15 @@ public class Main {
         break;
       case 12:
         /*listar todas as matrículas feitas*/
-        listarMatriculas();
+        //listarMatriculas();
         break;
       case 13:
         /*listar todos os cursos cadastrados*/
-        listarCursos();
+        //listarCursos();
         break;
       case 14:
         /*listar todos os alunos cadastrados*/
-        listarAlunos();
+        //listarAlunos();
         break;
       case 15:
         /*listar todos os alunos de um curso*/

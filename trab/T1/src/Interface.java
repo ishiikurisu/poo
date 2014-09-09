@@ -39,12 +39,13 @@ public class Interface {
   /**
   * Mostra uma coleção de dados por vez
   */
-  public static void mostrar(String[] info, int maxSize) {
+  public static void mostrar(String[] info) {
+    int tamanho = Integer.parseInt(info[0]);
     String tag;
     String obj;
     String result;
 
-    for (int i = 0; i < maxSize; ++i) {
+    for (int i = 1; i <= tamanho; ++i) {
       tag = info[2*i];
       obj = info[2*i+1];
       result = tag + ": " + obj;
