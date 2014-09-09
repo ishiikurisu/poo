@@ -46,8 +46,8 @@ public class Interface {
     String result;
 
     for (int i = 1; i <= tamanho; ++i) {
-      tag = info[2*i];
-      obj = info[2*i+1];
+      tag = info[2*i-1];
+      obj = info[2*i];
       result = tag + ": " + obj;
 
       System.out.println("  " + result);

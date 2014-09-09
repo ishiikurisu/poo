@@ -126,10 +126,18 @@ public class Main {
   public static void procurarCurso() {
     Curso curso;
     String nome = null;
+    String[] info;
 
     intfc.escrever("Procura de cursos");
     nome = intfc.pedir("Digite o nome", nome);
-    intfc.mostrar(cad.procurarCurso(nome));
+    info = cad.procurarCurso(nome);
+
+    if (info == null)
+      intfc.reportarErro("Erro interno");
+    else {
+      intfc.escrever("Curso encontrado: ");
+      intfc.mostrar(info);
+    }
   }
 
   /**
@@ -202,8 +210,10 @@ public class Main {
 
     if (info == null)
       intfc.reportarErro("Erro interno");
-    else
+    else {
+      intfc.escrever("Matrícula encontrado");
       intfc.mostrar(info);
+    }
   }
 
   public static void cancelarMatricula() {

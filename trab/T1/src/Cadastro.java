@@ -101,7 +101,7 @@ public class Cadastro {
     }
     else {
       String[] info = {
-        "6",
+        "3",
         "Aluno", matricula.getAluno().getNome(),
         "Curso", matricula.getCurso().getNome(),
         "Número", "" + matricula.getNumero()
