@@ -172,4 +172,54 @@ public class Cadastro {
     return list;
   }
 
+  public List listarAlunos(String tipoFiltro, String filtro) {
+    List lista = new LinkedList<String[]>();
+
+    switch (tipoFiltro) {
+      case "curso":
+        for (int i = 0; i < repositorioMatriculas.tamanho(); ++i) {
+          Matricula matriculaAtual = (Matricula) repositorioMatriculas.obter(i);
+
+          if (matriculaAtual.getCurso().getNome().equals(filtro)) {
+            String[] info = {
+              "2",
+              "Aluno", matriculaAtual.getAluno().getNome(),
+              "Matrícula", "" + matriculaAtual.getNumero()
+            };
+
+            lista.add(info);
+          }
+        }
+      break;
+      
+      case "todos":
+        List parcial;
+
+        for (int i = 0; i < repositorioCursos.tamanho(); ++i) {
+          parcial = new LinkedList<String[]>();
+          Curso cursoAtual = (Curso) repositorioCursos.obter(i);
+
+          for (int j = 0; j < repositorioMatriculas.tamanho(); ++j) {
+            Matricula matriculaAtual = (Matricula) repositorioMatriculas.obter(j);
+
+            if (matriculaAtual.getCurso().getNome().equals(cursoAtual.getNome())) {
+              String[] info = {
+                "3",
+                "Curso", cursoAtual.getNome(),
+                "Aluno", matriculaAtual.getAluno().getNome(),
+                "Matrícula", matriculaAtual.getNumero() + ""
+              };
+              parcial.add(info);
+            }
+          }
+          for (int j = 0; j < parcial.size(); ++j) {
+            lista.add(parcial.get(i));
+          }
+        }
+      break;
+    }
+
+    return lista;
+  }
+
 }

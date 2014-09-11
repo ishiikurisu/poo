@@ -1,14 +1,16 @@
-import java.util.Scanner;
-import java.util.List;
+import java.util.*;
+import java.io.*;
 
 public class Interface {
   /* Atributos */
-  private static Scanner input;
+  //private static Scanner input;
+  private static InputStreamReader ir = new InputStreamReader(System.in);
+  private static BufferedReader in = new BufferedReader(ir);
   private static int option;
 
   /* Construtores */
   public Interface() {
-    input = new Scanner(System.in);
+    //input = new Scanner(System.in);
   }
 
   /* Métodos */
@@ -25,13 +27,19 @@ public class Interface {
   */
   public static String pedir(String msg, String pedido) {
     System.out.print("  " + msg + ": ");
-    pedido = input.next().trim();
+    //pedido = input.nextLine().trim();
+    try {
+      pedido = in.readLine().trim();
+    } catch (Exception IOException) {}
+
 
     return pedido;
   }
   public static int pedir(String msg, int pedido) {
     System.out.print("  " + msg + ": ");
-    pedido = input.nextInt();
+    //pedido = input.nextInt();
+    try { pedido = Integer.parseInt(in.readLine());
+    } catch (Exception IOException) {}
 
     return pedido;
   }
@@ -52,7 +60,7 @@ public class Interface {
 
       System.out.println("  " + result);
     }
-    System.out.println("---");
+    System.out.println(" ");
   }
 
   /**

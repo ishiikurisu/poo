@@ -228,15 +228,6 @@ public class Main {
 
   /* FUNÇÕES DE LISTAGEM */
 
-  // Nova idéia: usar um Dicionário para escrever as listagens. Para tanto,
-  // devemos checar se podemos escrever todos os itens de um dicionário.
-  // Se não der, podemos usar um dicionário dentro de um dicionário:
-  // O primeiro dicionário conterá as entradas para as informações, e o
-  // dicionário interior conterá os pares de informações a serem usados.
-
-  // Nova idéia: criar classes de cadastro, que lidem com o preenchimento dos
-  // repositórios e com as listagens.
-
   /**
   * Lista todas as matrículas
   */
@@ -259,6 +250,25 @@ public class Main {
   public static void listarAlunos() {
     intfc.escrever("Todos os alunos");
     intfc.mostrarVarios(cad.listarAlunos());
+  }
+
+  /**
+  * Lista todos os alunos de um determinado curso
+  */
+  public static void listarAlunosCurso() {
+    String filtro = null;
+
+    intfc.escrever("Todos os alunos de um curso");
+    filtro = intfc.pedir("Digite um curso", filtro);
+    intfc.mostrarVarios(cad.listarAlunos("curso", filtro));
+  }
+
+  /**
+  * Lista todos os alunos de todos os cursos
+  */
+  public static void listarTodosAlunos() {
+    intfc.escrever("Todos os alunos, por curso");
+    intfc.mostrarVarios(cad.listarAlunos("todos", null));
   }
 
   /* FUNÇÕES DE LIGAÇÃO */
@@ -322,10 +332,12 @@ public class Main {
         break;
       case 15:
         /*listar todos os alunos de um curso*/
-
+        listarAlunosCurso();
+        break;
       case 16:
         /*listar todos os alunos de todos os cursos*/
-
+        listarTodosAlunos();
+        break;
       case 17:
         /*listar todos os cursos de um aluno*/
 
