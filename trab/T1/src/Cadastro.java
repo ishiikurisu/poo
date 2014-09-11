@@ -217,6 +217,34 @@ public class Cadastro {
           }
         }
       break;
+
+      case "sem":
+        for (int i = 0; i < repositorioAlunos.tamanho(); ++i) {
+          Aluno alunoAtual = (Aluno) repositorioAlunos.obter(i);
+          boolean flag = false;
+          int it = 0;
+
+          while (it < repositorioMatriculas.tamanho() && !flag) {
+            Matricula matriculaAtual = (Matricula) repositorioMatriculas.obter(it);
+
+            if (matriculaAtual.getAluno().getNome().equals(alunoAtual.getNome())) {
+              flag = true;
+            }
+            else {
+              it++;
+            }
+          }
+
+
+          if (!flag) {
+            String[] info = {
+              "1",
+              "Aluno", alunoAtual.getNome()
+            };
+            lista.add(info);
+          }
+        }
+      break;
     }
 
     return lista;
@@ -267,9 +295,76 @@ public class Cadastro {
           }
         }
       break;
+
+      case "sem":
+        for (int i = 0; i < repositorioCursos.tamanho(); ++i) {
+          Curso cursoAtual = (Curso) repositorioCursos.obter(i);
+          boolean flag = false;
+          int it = 0;
+
+          while (it < repositorioMatriculas.tamanho() && !flag) {
+            Matricula matriculaAtual = (Matricula) repositorioMatriculas.obter(it);
+
+            if (matriculaAtual.getCurso().getNome().equals(cursoAtual.getNome())) {
+              flag = true;
+            }
+            else {
+              it++;
+            }
+          }
+
+
+          if (!flag) {
+            String[] info = {
+              "1",
+              "Curso", cursoAtual.getNome()
+            };
+            lista.add(info);
+          }
+        }
+      break;
     }
 
     return lista;
   }
 
+  public List listarMatriculas(String tipoFiltro, String filtro) {
+    List lista = new LinkedList<String[]>();
+
+    switch (tipoFiltro) {
+      case "aluno":
+        for (int i = 0; i < repositorioMatriculas.tamanho(); ++i) {
+          Matricula matriculaAtual = (Matricula) repositorioMatriculas.obter(i);
+
+          if (matriculaAtual.getAluno().getNome().equals(filtro)) {
+            String[] info = {
+              "2",
+              "Matrícula", "" + matriculaAtual.getNumero(),
+              "Curso", matriculaAtual.getCurso().getNome()
+            };
+
+            lista.add(info);
+          }
+        }
+      break;
+
+      case "curso":
+        for (int i = 0; i < repositorioMatriculas.tamanho(); ++i) {
+          Matricula matriculaAtual = (Matricula) repositorioMatriculas.obter(i);
+
+          if (matriculaAtual.getCurso().getNome().equals(filtro)) {
+            String[] info = {
+              "2",
+              "Matrícula", "" + matriculaAtual.getNumero(),
+              "Aluno", matriculaAtual.getAluno().getNome()
+            };
+
+            lista.add(info);
+          }
+        }
+      break;
+    }
+
+    return lista;
+  }
 }

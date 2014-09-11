@@ -290,6 +290,41 @@ public class Main {
     intfc.mostrarVarios(cad.listarCursos("todos", null));
   }
 
+  /**
+  * Lista todas as matrículas de um aluno
+  */
+  public static void listarMatriculasAluno() {
+    String aluno = null;
+
+    intfc.escrever("Todas as matrículas de um aluno");
+    aluno = intfc.pedir("Digite o nome do aluno", aluno);
+    intfc.mostrarVarios(cad.listarMatriculas("aluno", aluno));
+  }
+
+  /**
+  * Lista todas as matrículas existentes de um curso
+  */
+  public static void listarMatriculasCurso() {
+    String curso = null;
+
+    intfc.escrever("Todas as matrículas de um curso");
+    curso = intfc.pedir("Digite o nome do curso", curso);
+    intfc.mostrarVarios(cad.listarMatriculas("curso", curso));
+  }
+
+  /**
+  * Lista todos os alunos que não estão cadastrados em algum curso
+  */
+  public static void listarAlunosSemCurso() {
+    intfc.escrever("Todos os alunos sem curso");
+    intfc.mostrarVarios(cad.listarAlunos("sem", null));
+  }
+
+  public static void listarCursosSemAluno() {
+    intfc.escrever("Todos os cursos sem alunos");
+    intfc.mostrarVarios(cad.listarCursos("sem", null));
+  }
+
   /* FUNÇÕES DE LIGAÇÃO */
   static void realizar(int opcao) {
     switch (opcao) {
@@ -367,16 +402,19 @@ public class Main {
         break;
       case 19:
         /*listar todas as matrículas de um aluno*/
-
+        listarMatriculasAluno();
+        break;
       case 20:
         /*listar todas as matrículas de um curso*/
-
+        listarMatriculasCurso();
+        break;
       case 21:
         /*listar alunos cadastrados sem curso*/
-
+        listarAlunosSemCurso();
+        break;
       case 22:
         /*listar cursos cadastrados sem alunos*/
-        intfc.reportarErro("Opção não implementada.");
+        listarCursosSemAluno();
         break;
 
       default:
