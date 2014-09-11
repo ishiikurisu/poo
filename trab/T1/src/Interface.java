@@ -1,33 +1,33 @@
+/*
+Esta classe é usada como um intermediário entre o usuário e a
+camada de negócio, representada aqui pela classe Main.java
+*/
+
 import java.util.*;
 import java.io.*;
 
 public class Interface {
   /* Atributos */
-  //private static Scanner input;
   private static InputStreamReader ir = new InputStreamReader(System.in);
   private static BufferedReader in = new BufferedReader(ir);
-  private static int option;
 
   /* Construtores */
-  public Interface() {
-    //input = new Scanner(System.in);
-  }
+  public Interface() {}
 
   /* Métodos */
   public static void reportarErro(String mensagemDeErro) {
     System.out.println(mensagemDeErro);
-    //System.exit(1);
   }
   public static void escrever(String mensagem) {
     System.out.println(mensagem);
   }
 
   /**
-  * Escreve mensagens no terminal pedindo informações
+  * Escreve mensagens no terminal pedindo informações e retorna
+  * o que o usuário responde
   */
   public static String pedir(String msg, String pedido) {
     System.out.print("  " + msg + ": ");
-    //pedido = input.nextLine().trim();
     try {
       pedido = in.readLine().trim();
     } catch (Exception IOException) {}
@@ -37,7 +37,6 @@ public class Interface {
   }
   public static int pedir(String msg, int pedido) {
     System.out.print("  " + msg + ": ");
-    //pedido = input.nextInt();
     try { pedido = Integer.parseInt(in.readLine());
     } catch (Exception IOException) {}
 

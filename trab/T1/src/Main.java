@@ -22,8 +22,6 @@ public class Main {
   private static Cadastro cad = new Cadastro();
   private static Interface intfc = new Interface();
 
-  /* FUNÇÕES DE NEGÓCIO */
-
   /**
   * Cadastra um novo aluno
   */
@@ -216,6 +214,9 @@ public class Main {
     }
   }
 
+  /**
+  * Cancela uma matrícula em um curso
+  */
   public static void cancelarMatricula() {
     Matricula matricula;
     int numeroMatricula = 0;
@@ -427,7 +428,7 @@ public class Main {
   }
 
   /**
-  * Dá início do programa
+  * Dá início ao programa
   */
   public static final void main(String[] args) {
     int opcao = 0;
