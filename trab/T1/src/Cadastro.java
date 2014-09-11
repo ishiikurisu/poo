@@ -172,7 +172,7 @@ public class Cadastro {
     return list;
   }
 
-  public List listarAlunos(String tipoFiltro, String filtro) {
+  public List listarAlunos(String tipoFiltro, String filtro) { // Versão com filtros
     List lista = new LinkedList<String[]>();
 
     switch (tipoFiltro) {
@@ -191,7 +191,7 @@ public class Cadastro {
           }
         }
       break;
-      
+
       case "todos":
         List parcial;
 
@@ -213,7 +213,57 @@ public class Cadastro {
             }
           }
           for (int j = 0; j < parcial.size(); ++j) {
-            lista.add(parcial.get(i));
+            lista.add(parcial.get(j));
+          }
+        }
+      break;
+    }
+
+    return lista;
+  }
+
+  public List listarCursos(String tipoFiltro, String filtro) {
+    List lista = new LinkedList<String[]>();
+
+    switch (tipoFiltro) {
+      case "alunos":
+        for (int i = 0; i < repositorioMatriculas.tamanho(); ++i) {
+          Matricula matriculaAtual = (Matricula) repositorioMatriculas.obter(i);
+
+          if (matriculaAtual.getAluno().getNome().equals(filtro)) {
+            String[] info = {
+              "2",
+              "Curso", matriculaAtual.getCurso().getNome(),
+              "Matrícula", "" + matriculaAtual.getNumero()
+            };
+
+            lista.add(info);
+          }
+        }
+      break;
+
+      case "todos":
+        List parcial;
+
+        for (int i = 0; i < repositorioAlunos.tamanho(); ++i) {
+          parcial = new LinkedList<String[]>();
+          Aluno alunoAtual = (Aluno) repositorioAlunos.obter(i);
+
+          for (int j = 0; j < repositorioMatriculas.tamanho(); ++j) {
+            Matricula matriculaAtual = (Matricula) repositorioMatriculas.obter(j);
+
+            if (matriculaAtual.getAluno().getNome().equals(alunoAtual.getNome())) {
+              String[] info = {
+                "3",
+                "Aluno", alunoAtual.getNome(),
+                "Curso", matriculaAtual.getCurso().getNome(),
+                "Matrícula", matriculaAtual.getNumero() + ""
+              };
+              parcial.add(info);
+            }
+          }
+          for (int j = 0; j < parcial.size(); ++j) {
+            lista.add(parcial.get(j));
           }
         }
       break;

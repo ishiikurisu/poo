@@ -271,6 +271,25 @@ public class Main {
     intfc.mostrarVarios(cad.listarAlunos("todos", null));
   }
 
+  /**
+  * Lista todos os cursos nos quais um aluno está cadastrado
+  */
+  public static void listarCursosAluno() {
+    String filtro = null;
+
+    intfc.escrever("Todos os cursos de um aluno");
+    filtro = intfc.pedir("Digite o nome do aluno", filtro);
+    intfc.mostrarVarios(cad.listarCursos("alunos", filtro));
+  }
+
+  /**
+  * Lista todos os cursos de todos os alunos
+  */
+  public static void listarTodosCursos() {
+    intfc.escrever("Todos os cursos de todos os alunos");
+    intfc.mostrarVarios(cad.listarCursos("todos", null));
+  }
+
   /* FUNÇÕES DE LIGAÇÃO */
   static void realizar(int opcao) {
     switch (opcao) {
@@ -340,10 +359,12 @@ public class Main {
         break;
       case 17:
         /*listar todos os cursos de um aluno*/
-
+        listarCursosAluno();
+        break;
       case 18:
         /*listar todos os cursos de todos os alunos*/
-
+        listarTodosCursos();
+        break;
       case 19:
         /*listar todas as matrículas de um aluno*/
 
