@@ -320,6 +320,9 @@ public class Main {
     intfc.mostrarVarios(cad.listarAlunos("sem", null));
   }
 
+  /**
+  * Lista todos os cursos que não possuem alunos
+  */
   public static void listarCursosSemAluno() {
     intfc.escrever("Todos os cursos sem alunos");
     intfc.mostrarVarios(cad.listarCursos("sem", null));
