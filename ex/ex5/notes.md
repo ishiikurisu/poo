@@ -11,7 +11,7 @@ lugar de objetos da superclasse.
 
 Em Java, temos as keywords extends e super, que são usadas para aproveitar
 classes. Se uma superclasse não for definida, a linguagem especifica como
-superclasse Object. Ela é a raiz da hierarquia de tipos; ou a class suprema,
+superclasse Object. Ela é a raiz da hierarquia de tipos; ou a classe suprema,
 tanto que ela não estende nenhuma outra classe.
 
 Overriding

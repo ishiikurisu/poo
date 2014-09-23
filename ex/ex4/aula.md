@@ -48,7 +48,7 @@ Um array é uma sequência de elementos do mesmo tipo. Podem ser multidimensiona
 
     long[][] x = {{1,0},{2,3},{4,5},{6,7,8},{9,0}};
 
-Aqui também há acessos inválidos. Eles levantam a erro IndexOutOfBoundsException.
+Aqui também há acessos inválidos. Eles levantam o erro IndexOutOfBoundsException.
 
 Arquitetura em Camadas
 ======================
@@ -69,4 +69,4 @@ trai detalhes das camadas superiores. Um estilo arquitetural comum é:
 + Negócio
 + Dados
 
-Outros estilo incluem MVC, pipes and filters,
+Outros estilo incluem MVC, pipes and filters...
