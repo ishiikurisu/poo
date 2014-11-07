@@ -1,3 +1,9 @@
+package T2.src.cadastro;
+
+import java.util.*;
+
+import T2.src.repositorio.*;
+
 /*
 Esta classe lida com os repositórios da aplicação. Neste arquivo,
 esta classe está divida em três partes: na parte de alunos, na parte
@@ -7,9 +13,6 @@ tanto que há override de diversas funções, notavelmente a da função
 cadastrar. A última parte gera listas que podem involver mais de um
 repositório diferente.
 */
-
-import java.util.*;
-
 public class Cadastro {
   private static RepositorioAluno repositorioAlunos = new RepositorioAluno();
   private static RepositorioCurso repositorioCursos = new RepositorioCurso();

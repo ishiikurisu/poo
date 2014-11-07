@@ -1,3 +1,5 @@
+package T2.src.negocio;
+
 public class Curso {
   /**
   * Atributos

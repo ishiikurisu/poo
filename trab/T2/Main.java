@@ -1,4 +1,4 @@
-package src;
+import T2.*;
 
 /**
 * Classe principal do 2o projeto da matéria Programação Orientada a Objetos
@@ -20,7 +20,9 @@ package src;
 * @author Cristiano Silva Jr - 13/0070629 <cristianoalvesjr@gmail.com>
 */
 public class Main {
+  private static Interface interface;
+
   public static final void main(String[] args) {
-    Interface interface = new Interface();
+    interface = new Interface;
   }
 }

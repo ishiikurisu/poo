@@ -1,4 +1,4 @@
-package src.negocio;
+package T2.src.negocio;
 
 public class FalhaAtualizacaoException extends Exception {
   private String mensagem;
