@@ -1,4 +1,4 @@
-package T2.src.negocio;
+package T2.src.cadastro;
 
 public class MatriculaInexistenteException extends Exception {
   private String message = "Matrícula inexistente";

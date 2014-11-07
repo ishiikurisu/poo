@@ -2,8 +2,10 @@ package T2.src;
 
 import java.util.List;
 
+import T2.src.aluno.Aluno;
+import T2.src.Curso.curso;
+import T2.src.matricula.Matricula;
 import T2.src.cadastro.*;
-import T2.src.negocio.*;
 
 /**
 * Esta classe junta todas as aplicações em uma
@@ -31,7 +33,7 @@ public class Fachada {
   /**
   * Cadastra um novo aluno
   */
-  public void cadastrarAluno
+  public static void cadastrarAluno
   (String nome, String nome, String endereco, String telefone, int idade) {
     cadastro.cadastrar(nome, endereco, telefone, idade);
   }
@@ -39,11 +41,11 @@ public class Fachada {
   /**
   * Procura por um já cadastrado aluno
   */
-  public String[] procurarAluno(String nome) throws PesquisaSemResultadoException {
+  public static String[] procurarAluno(String nome) throws PesquisaSemResultadoException {
     Aluno aluno = null;
     String[] outlet;
 
-    aluno = cad.procurarAluno(nome);
+    aluno = cadastro.procurarAluno(nome);
     if (aluno == null)
       throw new PesquisaSemResultadoException(nome);
 
@@ -51,7 +53,7 @@ public class Fachada {
     outlet[0] = 4;
     outlet[1] = "Nome";
     outlet[2] = aluno.getNome();
-    outlet[3] = "Endereço"
+    outlet[3] = "Endereço";
     outlet[4] = aluno.getEndereco();
     outlet[5] = "Telefone";
     outlet[6] = aluno.getTelefone();
@@ -64,7 +66,7 @@ public class Fachada {
   /**
   * Atualiza os dados cadastrais de um determinado aluno
   */
-  public void atualizarAluno
+  public static void atualizarAluno
   (String nome, String novoNome, String endereco, String telefone, int idade)
   throws  FalhaAtualizacaoException {
     Aluno aluno = cadastro.atualizar(nome, novoNome, endereco, telefone, idade);
@@ -82,7 +84,7 @@ public class Fachada {
   /**
   * Cadastra um novo curso
   */
-  public void cadastrarCurso
+  public static void cadastrarCurso
   (String codigo, String nome, String instrutor) {
     cadastro.cadastrar(codigo, nome, instrutor);
   }
@@ -90,7 +92,7 @@ public class Fachada {
   /**
   * Procura por um determinado curso
   */
-  public void procurarCurso(String nome)
+  public static void procurarCurso(String nome)
   throws PesquisaSemResultadoException {
     String nome = null;
     Curso curso;
@@ -103,7 +105,7 @@ public class Fachada {
     info = new String[7];
     info[0] = "7";
     info[1] = "Código";
-    info[2] = curso.getCodigo()
+    info[2] = curso.getCodigo();
     info[3] = "Nome";
     info[4] = curso.getNome();
     info[5] = "Instrutor";
@@ -115,17 +117,17 @@ public class Fachada {
   /**
   * Descadastra um curso
   */
-  public void descadastrarCurso(String curso) {
-    cad.descadastrarCurso(curso);
+  public static void descadastrarCurso(String curso) {
+    cadastro.descadastrarCurso(curso);
   }
 
   /**
   * Atualiza as informações cadastrais de um curso
   */
-  public void atualizarCurso
+  public static void atualizarCurso
   (String curso, String nome, String codigo, String instrutor) {
-    if (cad.existeCurso(curso))
-      cad.atualizar(curso, codigo, nome, instrutor);
+    if (cadastro.existeCurso(curso))
+      cadastro.atualizar(curso, codigo, nome, instrutor);
     else
       throw new PesquisaSemResultadoException(curso);
   }
@@ -133,9 +135,9 @@ public class Fachada {
   /**
   * Matricula um aluno em um curso
   */
-  public int matricularAluno(String aluno, String curso)
+  public static int matricularAluno(String aluno, String curso)
   throws ErroInternoException {
-    int matricula = cad.matricularAluno(aluno, curso);
+    int matricula = cadastro.matricularAluno(aluno, curso);
 
     if (matricula == 0)
       throw new ErroInternoException();
@@ -146,9 +148,8 @@ public class Fachada {
   /**
   * Procura por uma matrícula
   */
-  public String[] procurarMatricula() {
-    Matricula matricula;
-    info = cad.procurarMatricula(numeroMatricula);
+  public static String[] procurarMatricula() {
+    String[] info = cadastro.procurarMatricula(numeroMatricula);
 
     if (info == null) throw new MatriculaInexistenteException();
 
@@ -158,8 +159,8 @@ public class Fachada {
   /**
   * Cancela uma matrícula em um curso
   */
-  public void cancelarMatricula(int numeroMatricula) {
-    cad.cancelarMatricula(numeroMatricula);
+  public static void cancelarMatricula(int numeroMatricula) {
+    cadastro.cancelarMatricula(numeroMatricula);
   }
 
   /* FUNÇÕES DE LISTAGEM */
@@ -167,77 +168,77 @@ public class Fachada {
   /**
   * Lista todas as matrículas
   */
-  public List listarMatriculas() {
-    return cad.listarMatriculas();
+  public static List listarMatriculas() {
+    return cadastro.listarMatriculas();
   }
 
   /**
   * Lista todos os cursos cadastrados
   */
-  public List listarCursos() {
-    return cad.listarCursos();
+  public static List listarCursos() {
+    return cadastro.listarCursos();
   }
 
   /**
   * Lista todos os alunos
   */
-  public List listarAlunos() {
-    return cad.listarAlunos();
+  public static List listarAlunos() {
+    return cadastro.listarAlunos();
   }
 
   /**
   * Lista todos os alunos de um determinado curso
   */
-  public List listarAlunosCurso(String filtro) {
-    return cad.listarAlunos("curso", filtro);
+  public static List listarAlunosCurso(String filtro) {
+    return cadastro.listarAlunos("curso", filtro);
   }
 
   /**
   * Lista todos os alunos de todos os cursos
   */
-  public List listarTodosAlunos() {
-    return cad.listarAlunos("todos", null);
+  public static List listarTodosAlunos() {
+    return cadastro.listarAlunos("todos", null);
   }
 
   /**
   * Lista todos os cursos nos quais um aluno está cadastrado
   */
-  public List listarCursosAluno(String filtro) {
-    return cad.listarCursos("alunos", filtro);
+  public static List listarCursosAluno(String filtro) {
+    return cadastro.listarCursos("alunos", filtro);
   }
 
   /**
   * Lista todos os cursos de todos os alunos
   */
-  public List listarTodosCursos() {
-    return cad.listarCursos("todos", null);
+  public static List listarTodosCursos() {
+    return cadastro.listarCursos("todos", null);
   }
 
   /**
   * Lista todas as matrículas de um aluno
   */
-  public List listarMatriculasAluno(String aluno) {
-    return cad.listarMatriculas("aluno", aluno);
+  public static List listarMatriculasAluno(String aluno) {
+    return cadastro.listarMatriculas("aluno", aluno);
   }
 
   /**
   * Lista todas as matrículas existentes de um curso
   */
-  public List listarMatriculasCurso(String curso) {
-    return cad.listarMatriculas("curso", curso);
+  public static List listarMatriculasCurso(String curso) {
+    return cadastro.listarMatriculas("curso", curso);
   }
 
   /**
   * Lista todos os alunos que não estão cadastrados em algum curso
   */
-  public List listarAlunosSemCurso() {
-    return cad.listarAlunos("sem", null);
+  public static List listarAlunosSemCurso() {
+    return cadastro.listarAlunos("sem", null);
   }
 
   /**
   * Lista todos os cursos que não possuem alunos
   */
-  public List listarCursosSemAluno() {
-    return cad.listarCursos("sem", null);
+  public static List listarCursosSemAluno() {
+    return cadastro.listarCursos("sem", null);
   }
 }

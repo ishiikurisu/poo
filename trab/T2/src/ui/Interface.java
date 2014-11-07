@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.util.List;
 
 import T2.src.Fachada;
+import T2.src.cadastro.ErroInternoException;
+import T2.src.cadastro.FachadaDuplicadaException;
+import T2.src.cadastro.FalhaAtualizacaoException;
+import T2.src.cadastro.MatriculaInexistenteException;
+import T2.src.cadastro.PesquisaSemResultadoException;
 
 /*
 Esta classe implementa a interface gr�fica para que o usu�rio possa
@@ -13,33 +18,33 @@ usar a aplicação.
 */
 public class Interface {
   /* Atributos */
-  private InputStreamReader ir = new InputStreamReader(System.in);
-  private BufferedReader in = new BufferedReader(ir);
-  private Fachada fachada;
+  private static InputStreamReader ir = new InputStreamReader(System.in);
+  private static BufferedReader in = new BufferedReader(ir);
+  private static Fachada fachada;
 
-  private int OP_CAD_ALUNO = 1;
-  private int OP_PROC_ALUNO = 2;
-  private int OP_ATUAL_ALUNO = 3;
-  private int OP_DESCAD_ALUNO = 4;
-  private int OP_CAD_CURSO = 5;
-  private int OP_PROC_CURSO = 6;
-  private int OP_ATUAL_CURSO = 7;
-  private int OP_DESCAD_CURSO = 8;
-  private int OP_MAT_ALUNO = 9;
-  private int OP_PROC_MAT = 10;
-  private int OP_CANCEL_MAT = 11;
-  private int OP_LIST_TODAS_MATS = 12;
-  private int OP_LIST_TODOS_CURSOS = 13;
-  private int OP_LIST_TODOS_ALUNOS_CAD = 14;
-  private int OP_LIST_TODOS_ALUNOS_CURSO = 15;
-  private int OP_LIST_TODOS_ALUNOS_TODOS_CURSOS = 16;
-  private int OP_LIST_TODOS_CURSOS_ALUNO = 17;
-  private int OP_LIST_TODOS_CURSOS_TODOS_ALUNOS = 18;
-  private int OP_LIST_TODAS_MATS_ALUNO = 19;
-  private int OP_LIST_TODAS_MATS_CURSO = 20;
-  private int OP_LIST_ALUNOS_SEM_CURSO = 21;
-  private int OP_LIST_CURSOS_SEM_ALUNO = 22
-  private int OP_EXIT = 23;
+  private static final int OP_CAD_ALUNO = 1;
+  private static final int OP_PROC_ALUNO = 2;
+  private static final int OP_ATUAL_ALUNO = 3;
+  private static final int OP_DESCAD_ALUNO = 4;
+  private static final int OP_CAD_CURSO = 5;
+  private static final int OP_PROC_CURSO = 6;
+  private static final int OP_ATUAL_CURSO = 7;
+  private static final int OP_DESCAD_CURSO = 8;
+  private static final int OP_MAT_ALUNO = 9;
+  private static final int OP_PROC_MAT = 10;
+  private static final int OP_CANCEL_MAT = 11;
+  private static final int OP_LIST_TODAS_MATS = 12;
+  private static final int OP_LIST_TODOS_CURSOS = 13;
+  private static final int OP_LIST_TODOS_ALUNOS_CAD = 14;
+  private static final int OP_LIST_TODOS_ALUNOS_CURSO = 15;
+  private static final int OP_LIST_TODOS_ALUNOS_TODOS_CURSOS = 16;
+  private static final int OP_LIST_TODOS_CURSOS_ALUNO = 17;
+  private static final int OP_LIST_TODOS_CURSOS_TODOS_ALUNOS = 18;
+  private static final int OP_LIST_TODAS_MATS_ALUNO = 19;
+  private static final int OP_LIST_TODAS_MATS_CURSO = 20;
+  private static final int OP_LIST_ALUNOS_SEM_CURSO = 21;
+  private static final int OP_LIST_CURSOS_SEM_ALUNO = 22;
+  private static final int OP_EXIT = 23;
 
 
   /* Construtores */
@@ -51,12 +56,12 @@ public class Interface {
     }
     catch (FachadaDuplicadaException e) {
       System.out.println("Fachada duplicada");
-      System.exit();
+      System.exit(1);
     }
 
     while (true) {
       menuPrincipal();
-      opcao = this.pedir("Favor escolher uma opcao", opcao);
+      opcao = pedir("Favor escolher uma opcao", opcao);
       realizar(opcao);
     }
   }
@@ -152,7 +157,7 @@ public class Interface {
   /**
   * Chama uma determinada funcionalidade da fachada
   */
-  static void realizar(int opcao) {
+  public static void realizar(int opcao) {
     String[] lista;
     String aluno;
     String curso;
@@ -168,11 +173,11 @@ public class Interface {
     switch (opcao) {
       case OP_CAD_ALUNO:
         /*cadastrar aluno*/
-        this.escrever("Cadastro de novx alunx");
-        nome = this.pedir("Digite o nome", nome);
-        endereco = this.pedir("Digite o endereço", endereco);
-        telefone = this.pedir("Digite o telefone", telefone);
-        idade = this.pedir("Digite a idade", idade);
+        escrever("Cadastro de novx alunx");
+        nome = pedir("Digite o nome", nome);
+        endereco = pedir("Digite o endereço", endereco);
+        telefone = pedir("Digite o telefone", telefone);
+        idade = pedir("Digite a idade", idade);
 
         fachada.cadastrarAluno(nome, endereco, telefone, idade);
       break;
@@ -180,11 +185,11 @@ public class Interface {
       case OP_PROC_ALUNO:
         /*procurar aluno*/
         try {
-          this.escrever("Procura de alunos");
-          nome = this.pedir("Digite o nome", nome);
+          escrever("Procura de alunos");
+          nome = pedir("Digite o nome", nome);
           lista = fachada.procurarAluno(nome);
           System.out.println("Alunx encontradx");
-          this.mostrar(lista);
+          mostrar(lista);
         }
         catch (PesquisaSemResultadoException e) {
           System.out.println(e.getMessage());
@@ -194,182 +199,182 @@ public class Interface {
       case OP_ATUAL_ALUNO:
         /*atualizar aluno*/
         try {
-          this.escrever("Atualização de alunx");
-          nome = this.pedir("Digite o nome", nome);
-          novo = this.pedir("Digite o novo nome", novo);
-          endereco = this.pedir("Digite o novo endereço", endereco);
-          telefone = this.pedir("Digite o novo telefone", telefone);
-          idade = this.pedir("Digite a nova idade", idade);
+          escrever("Atualização de alunx");
+          nome = pedir("Digite o nome", nome);
+          novo = pedir("Digite o novo nome", novo);
+          endereco = pedir("Digite o novo endereço", endereco);
+          telefone = pedir("Digite o novo telefone", telefone);
+          idade = pedir("Digite a nova idade", idade);
           fachada.atualizarAluno(nome, novo, endereco, telefone, idade);
-          this.escrever("Alunx atualizadx");
+          escrever("Alunx atualizadx");
         }
         catch (FalhaAtualizacaoException e) {
-          this.escrever(e.getMessage());
+          escrever(e.getMessage());
         }
       break;
 
       case OP_DESCAD_ALUNO:
         /*descadastrar aluno*/
-        this.escrever("Descadastro de alunx");
-        nome = this.pedir("Digite o nome dx alunx", nome);
+        escrever("Descadastro de alunx");
+        nome = pedir("Digite o nome dx alunx", nome);
         fachada.descadastrarAluno();
-        this.escrever("Alunx descadastradx");
+        escrever("Alunx descadastradx");
       break;
 
       case OP_CAD_CURSO:
         /*cadastrar curso*/
-        this.escrever("Cadastro de curso");
-        codigo = this.pedir("Digite o código", codigo);
-        nome = this.pedir("Digite o nome", nome);
-        instrutor = this.pedir("Digite o nome do instrutor", instrutor);
+        escrever("Cadastro de curso");
+        codigo = pedir("Digite o código", codigo);
+        nome = pedir("Digite o nome", nome);
+        instrutor = pedir("Digite o nome do instrutor", instrutor);
         fachada.cadastrarCurso();
       break;
 
       case OP_PROC_CURSO:
         /*procurar curso*/
         try {
-          this.escrever("Procura de cursos");
-          nome = this.pedir("Digite o nome", nome);
+          escrever("Procura de cursos");
+          nome = pedir("Digite o nome", nome);
           lista = fachada.procurarCurso(nome);
-          this.escrever("Curso encontrado:");
-          this.mostrar(lista);
+          escrever("Curso encontrado:");
+          mostrar(lista);
         }
         catch (PesquisaSemResultadoException e) {
-          this.escrever(e.getMessage());
+          escrever(e.getMessage());
         }
       break;
 
       case OP_ATUAL_CURSO:
         /*atualizar curso*/
         try {
-          intfc.escrever("Atualização de curso");
-          nome = this.pedir("Digite o nome", curso);
-          novo = this.pedir("Digite o novo nome", nome);
-          codigo = this.pedir("Digite o novo código", codigo);
-          instrutor = this.pedir("Digite o novo instrutor", instrutor);
-          fachada.atualizarCurso(nome, novoNome, codigo, instrutor);
-          this.escrever("Curso atualizado!");
+          escrever("Atualização de curso");
+          nome = pedir("Digite o nome", curso);
+          novo = pedir("Digite o novo nome", nome);
+          codigo = pedir("Digite o novo código", codigo);
+          instrutor = pedir("Digite o novo instrutor", instrutor);
+          fachada.atualizarCurso(nome, novo, codigo, instrutor);
+          escrever("Curso atualizado!");
         }
         catch (PesquisaSemResultadoException e) {
-          this.escrever(e.getMessage());
+          escrever(e.getMessage());
         }
       break;
 
       case OP_DESCAD_CURSO:
         /*descadastrar curso*/
-        this.escrever("Descadastrar curso");
-        nome = this.pedir("Digite o nome", nome);
+        escrever("Descadastrar curso");
+        nome = pedir("Digite o nome", nome);
         fachada.descadastrarCurso(nome);
       break;
 
       case OP_MAT_ALUNO:
         /*matricular aluno*/
         try {
-          this.escrever("Matrícula");
-          aluno = this.pedir("Nome do aluno", aluno);
-          curso = this.pedir("Nome do curso", curso);
+          escrever("Matrícula");
+          aluno = pedir("Nome do aluno", aluno);
+          curso = pedir("Nome do curso", curso);
           matricula = fachada.matricularAluno(aluno, curso);
-          this.escrever("Matricula gerada: " + matricula);
+          escrever("Matricula gerada: " + matricula);
         }
         catch (ErroInternoException e) {
-          this.escrever("Algum dos itens não existe");
+          escrever("Algum dos itens não existe");
         }
       break;
 
       case OP_PROC_MAT:
         /*procurar matrícula*/
         try {
-          this.escrever("Procura de matrículas");
-          matricula = this.pedir("Digite o número da matrícula", matricula);
+          escrever("Procura de matrículas");
+          matricula = pedir("Digite o número da matrícula", matricula);
           lista = fachada.procurarMatricula(matricula);
-          this.mostrar(lista);
+          mostrar(lista);
         }
         catch (MatriculaInexistenteException e) {
-          this.escrever(e.getMessage());
+          escrever(e.getMessage());
         }
 
       case OP_CANCEL_MAT:
         /*cancelar matrícula*/
-        this.escrever("Cancelamento de matrícula");
-        matricula = this.pedir("Digite o número da matrícula", matricula);
+        escrever("Cancelamento de matrícula");
+        matricula = pedir("Digite o número da matrícula", matricula);
         fachada.cancelarMatricula(matricula);
-        this.escrever("Matrícula cancelada");
+        escrever("Matrícula cancelada");
       break;
 
       case OP_LIST_TODAS_MATS:
         /*listar todas as matrículas feitas*/
-        this.escrever("Todas as matrículas");
-        this.mostrarVarios(fachada.listarMatriculas());
+        escrever("Todas as matrículas");
+        mostrarVarios(fachada.listarMatriculas());
       break;
 
       case OP_LIST_TODOS_CURSOS:
         /*listar todos os cursos cadastrados*/
-        this.escrever("Todas os cursos");
-        this.mostarVarios(fachada.listarCursos());
+        escrever("Todas os cursos");
+        mostarVarios(fachada.listarCursos());
       break;
 
       case OP_LIST_TODOS_ALUNOS_CAD:
         /*listar todos os alunos cadastrados*/
-        this.escrever("Todas os alunos cadastrados");
-        this.mostarVarios(fachada.listarAlunos());
+        escrever("Todas os alunos cadastrados");
+        mostarVarios(fachada.listarAlunos());
       break;
 
       case OP_LIST_TODOS_ALUNOS_CURSO:
         /*listar todos os alunos de um curso*/
-        this.escrever("Todos os alunos de um curso");
-        curso = this.pedir("Digite um curso", curso);
-        this.mostrarVarios(fachada.listarAlunosCurso(curso));
+        escrever("Todos os alunos de um curso");
+        curso = pedir("Digite um curso", curso);
+        mostrarVarios(fachada.listarAlunosCurso(curso));
       break;
 
       case OP_LIST_TODOS_ALUNOS_TODOS_CURSOS:
         /*listar todos os alunos de todos os cursos*/
-        this.escrever("Todos os alunos, por curso");
-        this.mostrarVarios(fachada.listarTodosAlunos());
+        escrever("Todos os alunos, por curso");
+        mostrarVarios(fachada.listarTodosAlunos());
       break;
 
-      case OP_LIST_TODOS_CURSO_ALUNO:
+      case OP_LIST_TODOS_CURSOS_ALUNO:
         /*listar todos os cursos de um aluno*/
-        this.escrever("Todos os cursos de um aluno");
-        aluno = this.pedir("Digite o nome de um aluno", aluno);
-        this.mostrarVarios(fachada.listarCursosAluno());
+        escrever("Todos os cursos de um aluno");
+        aluno = pedir("Digite o nome de um aluno", aluno);
+        mostrarVarios(fachada.listarCursosAluno());
       break;
 
       case OP_LIST_TODOS_CURSOS_TODOS_ALUNOS:
         /*listar todos os cursos de todos os alunos*/
-        this.escrever("Todos os alunos de todos os cursos");
-        this.mostrarVarios(fachada.listarTodosCursos());
+        escrever("Todos os alunos de todos os cursos");
+        mostrarVarios(fachada.listarTodosCursos());
       break;
 
       case OP_LIST_TODAS_MATS_ALUNO:
         /*listar todas as matrículas de um aluno*/
-        this.escrever("Todas as matrículas de um aluno");
-        aluno = this.pedir("Digite o nome do aluno", aluno);
-        this.mostrarVarios(fachada.listarMatriculasAluno(aluno));
+        escrever("Todas as matrículas de um aluno");
+        aluno = pedir("Digite o nome do aluno", aluno);
+        mostrarVarios(fachada.listarMatriculasAluno(aluno));
       break;
 
       case OP_LIST_TODAS_MATS_CURSO:
         /*listar todas as matrículas de um curso*/
-        this.escrever("Todas as matrículas de um curso");
-        curso = this.pedir("Digite o nome do curso", curso);
-        this.mostrar(fachada.listarMatriculasCurso());
+        escrever("Todas as matrículas de um curso");
+        curso = pedir("Digite o nome do curso", curso);
+        mostrar(fachada.listarMatriculasCurso());
       break;
 
       case OP_LIST_ALUNOS_SEM_CURSO:
         /*listar alunos cadastrados sem curso*/
-        this.escrever("Todos os alunos sem curso");
-        this.mostrarVarios(fachada.listarAlunosSemCurso());
+        escrever("Todos os alunos sem curso");
+        mostrarVarios(fachada.listarAlunosSemCurso());
       break;
 
       case OP_LIST_CURSOS_SEM_ALUNO:
         /*listar cursos cadastrados sem alunos*/
-        this.escrever("Todos os cursos sem alunos");
-        this.mostrarVarios(fachada.listarCursosSemAluno());
+        escrever("Todos os cursos sem alunos");
+        mostrarVarios(fachada.listarCursosSemAluno());
       break;
 
       case OP_EXIT:
         /* sai do programa */
         System.out.println("Obrigado por usar a aplicação.");
-        System.exit();
+        System.exit(0);
       break;
 
       default:

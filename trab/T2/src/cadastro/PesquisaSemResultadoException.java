@@ -1,4 +1,4 @@
-package T2.src.negocio;
+package T2.src.cadastro;
 
 public class PesquisaSemResultadoException {
   private String message;

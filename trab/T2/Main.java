@@ -1,4 +1,5 @@
-import T2.*;
+package T2;
+import T2.src.ui.Interface;
 
 /**
 * Classe principal do 2o projeto da matéria Programação Orientada a Objetos
@@ -20,9 +21,7 @@ import T2.*;
 * @author Cristiano Silva Jr - 13/0070629 <cristianoalvesjr@gmail.com>
 */
 public class Main {
-  private static Interface interface;
-
   public static final void main(String[] args) {
-    interface = new Interface;
+    new Interface();
   }
 }

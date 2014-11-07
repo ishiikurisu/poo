@@ -2,7 +2,12 @@ package T2.src.cadastro;
 
 import java.util.*;
 
-import T2.src.repositorio.*;
+import T2.src.aluno.Aluno;
+import T2.src.aluno.RepositorioAluno;
+import T2.src.aluno.Curso;
+import T2.src.aluno.RepositorioCurso;
+import T2.src.aluno.Matricula;
+import T2.src.aluno.RepositorioMatricula;
 
 /*
 Esta classe lida com os repositórios da aplicação. Neste arquivo,

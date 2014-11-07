@@ -1,6 +1,7 @@
 package T2.src.repositorio;
 
-import java.util.*;
+import java.util.List;
+import java.util.LinkedList;
 
 public class Repositorio {
   /**

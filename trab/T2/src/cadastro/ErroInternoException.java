@@ -1,4 +1,4 @@
-package T2.src.negocio;
+package T2.src.cadastro;
 
 public class ErroInternoException extends Exception {
   public ErroInternoException() {

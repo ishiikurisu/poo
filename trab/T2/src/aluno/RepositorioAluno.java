@@ -1,6 +1,7 @@
 package T2.src.repositorio;
 
 import java.util.List;
+import T2.src.Repositorio;
 
 public class RepositorioAluno extends Repositorio {
   /*remover alunos*/
