@@ -1,4 +1,7 @@
-package T2.src.negocio;
+package escola.matricula;
+
+import escola.aluno.Aluno;
+import escola.curso.Curso;
 
 public class Matricula {
   /**

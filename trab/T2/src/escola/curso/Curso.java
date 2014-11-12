@@ -1,4 +1,4 @@
-package T2.src.negocio;
+package escola.curso;
 
 public class Curso {
   /**

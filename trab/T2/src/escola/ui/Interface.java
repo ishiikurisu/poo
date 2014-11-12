@@ -1,16 +1,16 @@
-package T2.src.ui;
+package escola.ui;
 
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
-import T2.src.Fachada;
-import T2.src.cadastro.ErroInternoException;
-import T2.src.cadastro.FachadaDuplicadaException;
-import T2.src.cadastro.FalhaAtualizacaoException;
-import T2.src.cadastro.MatriculaInexistenteException;
-import T2.src.cadastro.PesquisaSemResultadoException;
+import escola.Fachada;
+import escola.cadastro.ErroInternoException;
+import escola.cadastro.FachadaDuplicadaException;
+import escola.cadastro.FalhaAtualizacaoException;
+import escola.cadastro.MatriculaInexistenteException;
+import escola.cadastro.PesquisaSemResultadoException;
 
 /*
 Esta classe implementa a interface gr�fica para que o usu�rio possa
@@ -48,8 +48,8 @@ public class Interface {
 
 
   /* Construtores */
-  public static Interface() {
-    int opcao;
+  public Interface() {
+    int opcao = 0;
 
     try {
       fachada = Fachada.obterInstancia();
@@ -114,6 +114,10 @@ public class Interface {
     System.out.println(" ");
   }
 
+  public static void mostrar(List info) {
+    mostrar((String[]) info.toArray());
+  }
+
   /**
   * Mostra várias coleções de dados
   */
@@ -158,17 +162,17 @@ public class Interface {
   * Chama uma determinada funcionalidade da fachada
   */
   public static void realizar(int opcao) {
-    String[] lista;
-    String aluno;
-    String curso;
-    String nome;
-    String novo;
-    String endereco;
-    String telefone;
-    String codigo;
-    String instrutor;
-    int idade;
-    int matricula;
+    String[] lista = null;
+    String aluno = null;
+    String curso = null;
+    String nome = null;
+    String novo = null;
+    String endereco = null;
+    String telefone = null;
+    String codigo = null;
+    String instrutor = null;
+    int idade = 0;
+    int matricula = 0;
 
     switch (opcao) {
       case OP_CAD_ALUNO:
@@ -217,7 +221,7 @@ public class Interface {
         /*descadastrar aluno*/
         escrever("Descadastro de alunx");
         nome = pedir("Digite o nome dx alunx", nome);
-        fachada.descadastrarAluno();
+        fachada.descadastrarAluno(nome);
         escrever("Alunx descadastradx");
       break;
 
@@ -227,7 +231,7 @@ public class Interface {
         codigo = pedir("Digite o código", codigo);
         nome = pedir("Digite o nome", nome);
         instrutor = pedir("Digite o nome do instrutor", instrutor);
-        fachada.cadastrarCurso();
+        fachada.cadastrarCurso(codigo, nome, instrutor);
       break;
 
       case OP_PROC_CURSO:
@@ -310,13 +314,13 @@ public class Interface {
       case OP_LIST_TODOS_CURSOS:
         /*listar todos os cursos cadastrados*/
         escrever("Todas os cursos");
-        mostarVarios(fachada.listarCursos());
+        mostrarVarios(fachada.listarCursos());
       break;
 
       case OP_LIST_TODOS_ALUNOS_CAD:
         /*listar todos os alunos cadastrados*/
         escrever("Todas os alunos cadastrados");
-        mostarVarios(fachada.listarAlunos());
+        mostrarVarios(fachada.listarAlunos());
       break;
 
       case OP_LIST_TODOS_ALUNOS_CURSO:
@@ -336,7 +340,7 @@ public class Interface {
         /*listar todos os cursos de um aluno*/
         escrever("Todos os cursos de um aluno");
         aluno = pedir("Digite o nome de um aluno", aluno);
-        mostrarVarios(fachada.listarCursosAluno());
+        mostrarVarios(fachada.listarCursosAluno(aluno));
       break;
 
       case OP_LIST_TODOS_CURSOS_TODOS_ALUNOS:
@@ -356,7 +360,7 @@ public class Interface {
         /*listar todas as matrículas de um curso*/
         escrever("Todas as matrículas de um curso");
         curso = pedir("Digite o nome do curso", curso);
-        mostrar(fachada.listarMatriculasCurso());
+        mostrar(fachada.listarMatriculasCurso(curso));
       break;
 
       case OP_LIST_ALUNOS_SEM_CURSO:

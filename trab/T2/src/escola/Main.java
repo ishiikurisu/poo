@@ -1,5 +1,5 @@
-package T2;
-import T2.src.ui.Interface;
+package escola;
+import escola.ui.Interface;
 
 /**
 * Classe principal do 2o projeto da matéria Programação Orientada a Objetos

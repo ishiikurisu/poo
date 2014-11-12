@@ -1,10 +1,10 @@
-package T2.src.cadastro;
+package escola.cadastro;
 
 public class MatriculaInexistenteException extends Exception {
-  private String message = "Matrícula inexistente";
+  private String message;
 
   public MatriculaInexistenteException() {
-    super();
+    message = "Matrícula inexistente";
   }
 
   public String getMessage() {

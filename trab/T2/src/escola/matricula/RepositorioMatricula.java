@@ -1,7 +1,7 @@
-package T2.src.repositorio;
+package escola.matricula;
 
 import java.util.*;
-import T2.src.Repositorio;
+import escola.Repositorio;
 
 public class RepositorioMatricula extends Repositorio {
   public RepositorioMatricula() {

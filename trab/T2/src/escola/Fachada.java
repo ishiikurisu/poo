@@ -1,25 +1,25 @@
-package T2.src;
+package escola;
 
 import java.util.List;
 
-import T2.src.aluno.Aluno;
-import T2.src.Curso.curso;
-import T2.src.matricula.Matricula;
-import T2.src.cadastro.*;
+import escola.aluno.Aluno;
+import escola.curso.Curso;
+import escola.matricula.Matricula;
+import escola.cadastro.*;
 
 /**
 * Esta classe junta todas as aplicações em uma
 */
 public class Fachada {
   /* Atributos */
-  private Cadastro cadastro = new Cadastro();
+  private static Cadastro cadastro = new Cadastro();
   private static boolean unicaFachada = false;
 
   /* Construtores */
   public Fachada() {
   }
 
-  public static Fachada obterFachada() throws FachadaDuplicadaException {
+  public static Fachada obterInstancia() throws FachadaDuplicadaException {
     if (unicaFachada == false)
       unicaFachada = true;
     else
@@ -33,8 +33,7 @@ public class Fachada {
   /**
   * Cadastra um novo aluno
   */
-  public static void cadastrarAluno
-  (String nome, String nome, String endereco, String telefone, int idade) {
+  public static void cadastrarAluno (String nome, String endereco, String telefone, int idade) {
     cadastro.cadastrar(nome, endereco, telefone, idade);
   }
 
@@ -50,7 +49,7 @@ public class Fachada {
       throw new PesquisaSemResultadoException(nome);
 
     outlet = new String[9];
-    outlet[0] = 4;
+    outlet[0] = "4";
     outlet[1] = "Nome";
     outlet[2] = aluno.getNome();
     outlet[3] = "Endereço";
@@ -92,24 +91,13 @@ public class Fachada {
   /**
   * Procura por um determinado curso
   */
-  public static void procurarCurso(String nome)
+  public static String[] procurarCurso(String nome)
   throws PesquisaSemResultadoException {
-    String nome = null;
-    Curso curso;
     String[] info;
 
-    curso = cadastro.procurarCurso(nome);
+    info = cadastro.procurarCurso(nome);
     if (info == null)
       throw new PesquisaSemResultadoException(nome);
-
-    info = new String[7];
-    info[0] = "7";
-    info[1] = "Código";
-    info[2] = curso.getCodigo();
-    info[3] = "Nome";
-    info[4] = curso.getNome();
-    info[5] = "Instrutor";
-    info[7] = curso.getInstrutor();
 
     return info;
   }
@@ -125,7 +113,8 @@ public class Fachada {
   * Atualiza as informações cadastrais de um curso
   */
   public static void atualizarCurso
-  (String curso, String nome, String codigo, String instrutor) {
+  (String curso, String nome, String codigo, String instrutor)
+  throws PesquisaSemResultadoException {
     if (cadastro.existeCurso(curso))
       cadastro.atualizar(curso, codigo, nome, instrutor);
     else
@@ -148,7 +137,8 @@ public class Fachada {
   /**
   * Procura por uma matrícula
   */
-  public static String[] procurarMatricula() {
+  public static String[] procurarMatricula(int numeroMatricula)
+  throws MatriculaInexistenteException {
     String[] info = cadastro.procurarMatricula(numeroMatricula);
 
     if (info == null) throw new MatriculaInexistenteException();

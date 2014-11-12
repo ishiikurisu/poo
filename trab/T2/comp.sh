@@ -1,4 +1,5 @@
+clear
 cd src
-javac Main.java
-java Main
-rm -rf *.class
+javac -d escola escola/Main.java
+cd escola
+java escola/Main

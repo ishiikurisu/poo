@@ -1,13 +1,13 @@
-package T2.src.cadastro;
+package escola.cadastro;
 
 import java.util.*;
 
-import T2.src.aluno.Aluno;
-import T2.src.aluno.RepositorioAluno;
-import T2.src.aluno.Curso;
-import T2.src.aluno.RepositorioCurso;
-import T2.src.aluno.Matricula;
-import T2.src.aluno.RepositorioMatricula;
+import escola.aluno.Aluno;
+import escola.aluno.RepositorioAluno;
+import escola.curso.Curso;
+import escola.curso.RepositorioCurso;
+import escola.matricula.Matricula;
+import escola.matricula.RepositorioMatricula;
 
 /*
 Esta classe lida com os repositórios da aplicação. Neste arquivo,
@@ -30,7 +30,7 @@ public class Cadastro {
   /**
   * Checa se um aluno ja existe no cadastro
   */
-  private boolean existeAluno(String nome, String endereco, String telefone, int idade) {
+  private static boolean existeAluno(String nome, String endereco, String telefone, int idade) {
     Aluno aluno = repositorioAlunos.procurar(nome);
 
     if (
@@ -48,8 +48,8 @@ public class Cadastro {
   * Esta função cadastra um novo aluno e o adiciona no repositório. Aqui, não
   * podem haver dois alunos com o mesmo nome.
   */
-  public void cadastrar(String nome, String endereco, String telefone, int idade) {
-    if (!this.existeAluno(nome, endereco, telefone, idade)) {
+  public static void cadastrar(String nome, String endereco, String telefone, int idade) {
+    if (!existeAluno(nome, endereco, telefone, idade)) {
       Aluno aluno = new Aluno(nome, endereco, telefone, idade);
       repositorioAlunos.adicionar(aluno);
     }
@@ -58,15 +58,15 @@ public class Cadastro {
   /**
   * Procura por um aluno no repositório dos alunos pelo nome.
   */
-  public Aluno procurarAluno(String nome) {
+  public static Aluno procurarAluno(String nome) {
     return repositorioAlunos.procurar(nome);
   }
 
   /**
   * Muda informações de um determinado item do repositório
   */
-  public Aluno atualizar(String nome, String novoNome, String novoEndereco, String novoTelefone, int novaIdade) {
-    Aluno aluno = this.procurarAluno(nome);
+  public static Aluno atualizar(String nome, String novoNome, String novoEndereco, String novoTelefone, int novaIdade) {
+    Aluno aluno = procurarAluno(nome);
     if (aluno != null) {
       aluno.setNome(novoNome);
       aluno.setEndereco(novoEndereco);
@@ -80,7 +80,7 @@ public class Cadastro {
   /**
   * Remove um aluno do repositório
   */
-  public void descadastrarAluno(String nome) {
+  public static void descadastrarAluno(String nome) {
     repositorioAlunos.remover(nome);
   }
 
@@ -88,7 +88,7 @@ public class Cadastro {
   /**
   * Checa se um curso já existe no repositório
   */
-  public boolean existeCurso(String nome) {
+  public static boolean existeCurso(String nome) {
     Curso curso = repositorioCursos.procurar(nome);
 
     if (curso != null)
@@ -100,7 +100,7 @@ public class Cadastro {
   /**
   * Cadastra um novo curso no repositório
   */
-  public void cadastrar(String codigo, String nome, String instrutor) {
+  public static void cadastrar(String codigo, String nome, String instrutor) {
     Curso curso = new Curso(codigo, nome, instrutor);
     repositorioCursos.adicionar(curso);
   }
@@ -108,7 +108,7 @@ public class Cadastro {
   /**
   * Procura pela existência de um curso no repositório
   */
-  public String[] procurarCurso(String nome) {
+  public static String[] procurarCurso(String nome) {
     Curso curso = repositorioCursos.procurar(nome);
 
     if (curso != null) {
@@ -127,14 +127,14 @@ public class Cadastro {
   /**
   * Remove um curso do cadastro
   */
-  public void descadastrarCurso(String nome) {
+  public static void descadastrarCurso(String nome) {
     repositorioCursos.remover(nome);
   }
 
   /**
   * Altera as informações de um determinado curso
   */
-  public Curso atualizar(String nome, String novoCodigo, String novoNome, String novoInstrutor) {
+  public static Curso atualizar(String nome, String novoCodigo, String novoNome, String novoInstrutor) {
     Curso curso = repositorioCursos.procurar(nome);
 
     if (curso != null) {
@@ -149,7 +149,7 @@ public class Cadastro {
   /**
   * Gera uma nova matrícula
   */
-  public int matricularAluno(String nomeAluno, String nomeCurso) {
+  public static int matricularAluno(String nomeAluno, String nomeCurso) {
     Aluno aluno = repositorioAlunos.procurar(nomeAluno);
     Curso curso = repositorioCursos.procurar(nomeCurso);
 
@@ -166,7 +166,7 @@ public class Cadastro {
   /**
   * Procura uma matrícula pelo seu número
   */
-  public String[] procurarMatricula(int numeroMatricula) {
+  public static String[] procurarMatricula(int numeroMatricula) {
     Matricula matricula = repositorioMatriculas.procurar(numeroMatricula);
 
     if (matricula == null) {
@@ -186,7 +186,7 @@ public class Cadastro {
   /**
   * Apaga uma matrícula do cadastro
   */
-  public void cancelarMatricula(int numeroMatricula) {
+  public static void cancelarMatricula(int numeroMatricula) {
     repositorioMatriculas.remover(numeroMatricula);
   }
 
@@ -194,7 +194,7 @@ public class Cadastro {
   /**
   * Lista todas as matrículas existentes, sem distinção
   */
-  public List listarMatriculas() { // Versão sem filtros
+  public static List listarMatriculas() { // Versão sem filtros
     List list = new LinkedList<String[]>();
 
     for (int i = 0; i < repositorioMatriculas.tamanho(); ++i) {
@@ -215,7 +215,7 @@ public class Cadastro {
   /**
   * Lista todos os cursos existentes, sem distinção
   */
-  public List listarCursos() { // Versão sem filtros
+  public static List listarCursos() { // Versão sem filtros
     List list = new LinkedList<String[]>();
 
     for (int i = 0; i < repositorioCursos.tamanho(); ++i) {
@@ -236,7 +236,7 @@ public class Cadastro {
   /**
   * Lista todos os alunos existentes, sem distinção
   */
-  public List listarAlunos() { // Versão sem filtros
+  public static List listarAlunos() { // Versão sem filtros
     List list = new LinkedList<String[]>();
 
     for (int i = 0; i < repositorioAlunos.tamanho(); ++i) {
@@ -264,7 +264,7 @@ public class Cadastro {
   *   + sem
   *     Lista os alunos que não estão matriculados em nada
   */
-  public List listarAlunos(String tipoFiltro, String filtro) { // Versão com filtros
+  public static List listarAlunos(String tipoFiltro, String filtro) { // Versão com filtros
     List lista = new LinkedList<String[]>();
 
     switch (tipoFiltro) {
@@ -352,7 +352,7 @@ public class Cadastro {
   *   + sem
   *     Lista todos os cursos sem alunos
   */
-  public List listarCursos(String tipoFiltro, String filtro) {
+  public static List listarCursos(String tipoFiltro, String filtro) {
     List lista = new LinkedList<String[]>();
 
     switch (tipoFiltro) {
@@ -438,7 +438,7 @@ public class Cadastro {
   *   + curso
   *     Lista todas as matrículas vinculadas a um curso
   */
-  public List listarMatriculas(String tipoFiltro, String filtro) {
+  public static List listarMatriculas(String tipoFiltro, String filtro) {
     List lista = new LinkedList<String[]>();
 
     switch (tipoFiltro) {

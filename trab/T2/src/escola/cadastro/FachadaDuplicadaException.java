@@ -1,7 +1,7 @@
-package T2.src.cadastro;
+package escola.cadastro;
 
 public class FachadaDuplicadaException extends Exception {
   public FachadaDuplicadaException() {
-
+    super();
   }
 }

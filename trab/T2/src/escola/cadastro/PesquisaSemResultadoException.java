@@ -1,6 +1,6 @@
-package T2.src.cadastro;
+package escola.cadastro;
 
-public class PesquisaSemResultadoException {
+public class PesquisaSemResultadoException extends Exception {
   private String message;
 
   public PesquisaSemResultadoException(String query) {

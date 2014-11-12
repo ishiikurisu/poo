@@ -1,7 +1,7 @@
-package T2.src.repositorio;
+package escola.curso;
 
 import java.util.List;
-import T2.src.Repositorio;
+import escola.Repositorio;
 
 public class RepositorioCurso extends Repositorio {
   /*remover cursos*/

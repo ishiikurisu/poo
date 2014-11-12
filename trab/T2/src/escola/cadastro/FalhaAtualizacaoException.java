@@ -1,4 +1,4 @@
-package T2.src.cadastro;
+package escola.cadastro;
 
 public class FalhaAtualizacaoException extends Exception {
   private String mensagem;

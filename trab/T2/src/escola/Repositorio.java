@@ -1,4 +1,4 @@
-package T2.src.repositorio;
+package escola;
 
 import java.util.List;
 import java.util.LinkedList;
