@@ -1,6 +1,9 @@
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
-class Exemplo {
+class Exemplo1 {
   public static final void main (String[] args) {
     try {
       FileOutputStream file = new FileOutputStream("hello.txt");

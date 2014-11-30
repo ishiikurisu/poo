@@ -1,9 +1,10 @@
 # TO DO LIST
 
-+ [ ] Aprender a usar o mecanismo de pacotes em Java.
++ [x] Aprender a usar o mecanismo de pacotes em Java.
   - Solução: use o arquivo comp.sh, ele contém a explicação
-  - Agora que sabemos como usar esta merda, temos que debugar a 
+  - Agora que sabemos como usar esta merda, temos que debugar a
     aplicação.
+  - Edit: aplicação já debugada.
 
 + [x] Reestruturar as camadas superiores do programa.
   - Basicamente, esta tarefa consiste em reescrever a interface gráfica
@@ -29,4 +30,4 @@
     trabalhadas.
 
 
-+ [ ] Escrever o arquivo principal.
++ [x] Escrever o arquivo principal.
